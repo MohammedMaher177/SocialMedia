@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom'
 
 export default function DisplayPosts({ post }) {
 
-    console.log(post);
 
     return (
         <>

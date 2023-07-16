@@ -55,6 +55,10 @@ const postsSlice = createSlice({
             state.posts = actions.payload
             state.isLoading = false
         });
+        builder.addCase(getPosts.rejected, (state, actions) => {
+            state.isLoading = false
+        });
+
         builder.addCase(getSubPost.pending, (state, actions) => {
             state.isLoading = true
         });
