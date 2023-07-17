@@ -11,8 +11,9 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 
 export default function CreatePost() {
     const [post, setPost] = useState(false)
-
-    const [formData, setFormData] = useState({ title: "", body: "" });
+    const { _id } = useSelector(({ auth }) => auth.user)
+    // console.log(_id);
+    const [formData, setFormData] = useState({ title: "", content: "" });
     const dispatch = useDispatch()
     const handlePost = (e) => {
         e.target.value.length > 0 ? setPost(true) : setPost(false);
@@ -24,9 +25,11 @@ export default function CreatePost() {
         // console.log(formData);
     }
 
-    const createPost = async (values) => {
-        // console.log(values);
+    const createPost = async () => {
+        formData.authorId = _id
+        
         dispatch(addPost(formData))
+        // console.log(values);
     }
 
 
@@ -44,8 +47,8 @@ export default function CreatePost() {
                             <input onChange={handlePost} type="text" className="form-control" id="title" name="title" required placeholder='please write atitle for a post' />
                         </div>
                         {post && <div className="form-group position-relative post">
-                            <label htmlFor="body" className='text-primary fs-4 d-flex me-auto'>Body</label>
-                            <textarea className="form-control" id="body" name="body" required rows="8" cols="50" onChange={handlePost}></textarea>
+                            <label htmlFor="content" className='text-primary fs-4 d-flex me-auto'>content</label>
+                            <textarea className="form-control" id="content" name="content" required rows="8" cols="50" onChange={handlePost}></textarea>
                             <button type="submit" className="btn btn-primary position-absolute end-0 bottom-0">Create Post</button>
                         </div>}
                     </Form>

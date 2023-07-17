@@ -1,11 +1,21 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import React, { useState } from 'react'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup'
+import { signUp } from '../../Redux/authSlice.js';
+import { useNavigate } from 'react-router-dom';
+
+
+
+
+
 export default function Register() {
-    const [isLoading, setIsLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState(null)
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
+    const { isLoading, errorMsg } = useSelector(({ auth }) => auth)
+
     const initialValues = {
-        userName: "",
+        name: "",
         email: "",
         password: "",
         rePassword: "",
@@ -13,11 +23,10 @@ export default function Register() {
         age: "",
         gender: ""
     };
-    // const [formData, setFormData] = useState(initialValues);
-    // Define the validation schema
+
     const schema = Yup.object().shape({
-        userName: Yup.string()
-            .matches(/^[a-zA-Z]{3,8}([_ -]?[a-zA-Z0-9]{3,8})*$/, "INVALID NAME, username must include at least one upper case letter")
+        name: Yup.string()
+            .matches(/^[a-zA-Z]{3,8}([_ -]?[a-zA-Z0-9]{3,8})*$/, "INVALID NAME, name must include at least one upper case letter")
             .required("Name is required"),
         email: Yup.string().email("Invalid email").required("Email is required"),
         password: Yup.string()
@@ -35,24 +44,22 @@ export default function Register() {
         gender: Yup.string().required("please enter you gender")
     });
 
-
-
-
-
     const handleChange = (event) => {
         const { name, value } = event.target;
         initialValues[name] = value
     }
-    const onSubmit = (values) => {
-        console.log(values);
-        // console.log(formData);
+    const onSubmit = async (values) => {
+        const { payload } = await dispatch(signUp(values))
+        if (payload.message = 'success') {
+            navigate("/")
+        }
     };
 
     return (
         <>
             <div className=' container py-5 bg-main'>
                 <h2 className='p-4 bg-secondary text-white-50 rounded rounded-2 d-flex me-auto'>CREATE ACCOUNT</h2>
-                {errorMessage != null && <div className='alert alert-danger'>{errorMessage}</div>}
+                {errorMsg != '' && <div className='alert alert-danger'>{errorMsg}</div>}
                 <Formik
                     initialValues={initialValues}
                     validationSchema={schema}
@@ -61,17 +68,17 @@ export default function Register() {
                 >
                     {({ errors, touched }) => (
                         <Form>
-                            {/* userName */}
+                            {/* name */}
                             <div className="form-group position-relative mb-5">
-                                <label htmlFor="userName" className='text-info text-opacity-75 d-flex me-auto fs-4'>Name</label>
+                                <label htmlFor="name" className='text-info text-opacity-75 d-flex me-auto fs-4'>Name</label>
                                 <Field
                                     type="text"
-                                    id="userName"
-                                    name="userName"
+                                    id="name"
+                                    name="name"
 
-                                    className={errors.userName && touched.userName ? "form-control is-invalid" : "form-control"}
+                                    className={errors.name && touched.name ? "form-control is-invalid" : "form-control"}
                                 />
-                                <ErrorMessage name="userName" component="div" className="invalid-feedback position-absolute" />
+                                <ErrorMessage name="name" component="div" className="invalid-feedback position-absolute" />
                             </div>
                             {/* email */}
                             <div className="form-group position-relative mb-5">
@@ -151,12 +158,11 @@ export default function Register() {
                                             errors.gender && touched.gender ? "form-control is-invalid" : "form-control"
                                         }>
                                         <option value=""></option>
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
                                     </Field>
                                 </label>
                             </div>
-
                             {isLoading ? <button className='btn btn-primary'><i className="fa-solid fa-spinner fa-spin"></i></button> :
                                 <button type="submit" className="btn btn-primary">
                                     REGISTER

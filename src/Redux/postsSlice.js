@@ -2,21 +2,20 @@
 
 
 
+
 //https://themoviesdata-com.onrender.com/posts
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { baseUrl, headers } from "../Util/Util.js";
 
 const initialState = { posts: [], isLoading: false, subPost: {} }
 
-const headers = {
-    "Content-Type": "application/json; charset=UTF-8",
-}
 
 const fetchData = async (method, endPoint = "") => {
     const { data } = await axios({
         method,
-        url: `https://themoviesdata-com.onrender.com/posts/${endPoint}`,
+        url: `${baseUrl}/posts/${endPoint}`,
         headers
     })
     return data
@@ -32,13 +31,12 @@ export const getSubPost = createAsyncThunk('posts/getSubPost', async (id) => {
 })
 
 export const addPost = createAsyncThunk("posts/addPost", async (values) => {
-    // console.log(values);
-    const { data } = await axios({
-        method: "POST",
-        url: `https://themoviesdata-com.onrender.com/posts`,
-        headers
-    })
-    // console.log(data);
+    console.log(values);
+    const { data } = await axios.post(`${baseUrl}/posts`, values)
+    .then(res => res)
+    .catch(err => err)
+    console.log(data);
+    return data.message
 })
 
 const postsSlice = createSlice({

@@ -14,7 +14,8 @@ export default function PostWithComments() {
     const newPost = await dispatch(getSubPost(id))
   }
   const { subPost: post, isLoading } = useSelector(({ posts }) => posts)
-  console.log(isLoading);
+  // console.log(post);
+  // console.log(isLoading);
   useEffect(() => {
     getPostData(id)
   }, [])
@@ -24,7 +25,8 @@ export default function PostWithComments() {
         <span className='d-flex align-content-center justify-content-center position-absolute top-50 start-50 translate-middle'>
           <i className="fa-solid fa-spinner fa-spin fs-1 text-primary"></i>
         </span>
-      </div> : <><div className='border-bottom text-start p-3'>
+      </div> : <>
+      <div className='border-bottom text-start p-3'>
         <div className='d-flex justify-content-between'>
           <Link to={`/users/search/${post?.authorId?._id}`} >
             <h2 className=' text-primary clickable'>{post?.authorId?.name}<i className="fa-regular fa-address-card mx-1"></i></h2>
@@ -46,9 +48,9 @@ export default function PostWithComments() {
         </div>
       </div>
 
-        <div>
+        <div className=' text-start'>
           {post?.postComments?.map(comment => <div key={comment._id}>
-            <h1>COMMENT WILL PUT HERE YA GAMA3A</h1>
+            <h4>{comment.content}</h4>
           </div>)}
         </div>
       </>}

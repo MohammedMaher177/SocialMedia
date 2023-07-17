@@ -52,4 +52,8 @@
   }
 }
 
-
+.sec{
+  height: 30vh;
+  overflow-x: auto;
+  
+}

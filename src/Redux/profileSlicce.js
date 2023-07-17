@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import { baseUrl, headers } from "../Util/Util.js"; 
 
 const initialState = {
     user:{
@@ -9,13 +9,11 @@ const initialState = {
     posts:[]
 }
 
-const headers = {
-    "Content-Type": "application/json; charset=UTF-8",
-}
+
 export const getProfileData = createAsyncThunk("profilel/getProfile", async (id) => {
     const {data} = await axios({
         method: "GET",
-        url: `https://themoviesdata-com.onrender.com/users/search/${id}`,
+        url: `${baseUrl}/users/search/${id}`,
         headers
     })
     const {posts, user} = data

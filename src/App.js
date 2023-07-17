@@ -13,6 +13,7 @@ import { Provider } from 'react-redux';
 import store from './Redux/Store.js';
 import Profile from './Components/Profile/Profile.jsx';
 import PostWithComments from './Components/Posts/PostWithComments.jsx';
+import Users from './Components/Users/Users.jsx';
 
 
 
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: "posts", element: <Posts />, },
       { path: "movies", element: <Movies />, },
       { path: "login", element: <Login />, },
+      { path: "users", element: <Users />, },
       { path: "signup", element: <Register />, },
       { path: "users/search/:id", element: <Profile />, },
       { path: "posts/search/:id", element: <PostWithComments />, },

@@ -16,14 +16,14 @@ export default function Profile() {
     const { id } = useParams()
     const dispatch = useDispatch()
 
-    
+
 
     const getProfile = async () => {
         const user = await dispatch(getProfileData(id))
     }
 
-    const {user, posts} = useSelector(({profile}) => profile)
-    useEffect(()=>{
+    const { user, posts } = useSelector(({ profile }) => profile)
+    useEffect(() => {
         getProfile()
     }, [])
     return (
@@ -37,7 +37,7 @@ export default function Profile() {
                     <h3>Email :{user?.email}</h3>
                 </div>
                 <div className="col-md-8 mx-auto border rounded-3 mb-4">
-                {posts?.map(post => <DisplayPosts post={post}  key={post._id}/>)}
+                    {!posts.length ? <span className=' text-warning'>No Posts To View</span> : posts?.map(post => <DisplayPosts post={post} key={post._id} />)}
                 </div>
                 <div className="col-md-9 mx-auto position-absolute top-100 start-0 end-0">
                     <div className='d-flex justify-content-between'>

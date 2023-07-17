@@ -1,11 +1,12 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup'
+import { signin } from '../../Redux/authSlice.js';
+import { useNavigate } from 'react-router-dom';
 export default function Login() {
-    const [isLoading, setIsLoading] = useState(false)
-    const [errorMessage, setErrorMessage] = useState(null)
+    // const [isLoading, setIsLoading] = useState(false)
     const initialValues = {
-
         email: "",
         password: "",
     };
@@ -19,22 +20,25 @@ export default function Login() {
     });
 
 
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-
-
+    const { isLoading, errorMsg } = useSelector(({ auth }) => auth)
     const handleChange = (event) => {
         const { name, value } = event.target;
         initialValues[name] = value
     }
-    const onSubmit = (values) => {
-        console.log(values);
+    const onSubmit = async (values) => {
+        const { payload } = await dispatch(signin(values))
+        if (payload.message == 'success')
+            navigate("/")
     };
 
     return (
         <>
             <div className=' container py-5 bg-main'>
                 <h2 className='p-4 bg-secondary text-white-50 rounded rounded-2 d-flex me-auto'>CREATE ACCOUNT</h2>
-                {errorMessage != null && <div className='alert alert-danger'>{errorMessage}</div>}
+                {errorMsg != '' && <div className='alert alert-danger'>{errorMsg}</div>}
 
                 <Formik
                     initialValues={initialValues}
@@ -44,7 +48,7 @@ export default function Login() {
                 >
                     {({ errors, touched }) => (
                         <Form>
-                            
+
                             {/* email */}
                             <div className="form-group position-relative mb-5">
                                 <label htmlFor="email" className='text-info text-opacity-75 d-flex me-auto fs-4'>Email</label>
@@ -73,7 +77,7 @@ export default function Login() {
                                 />
                                 <ErrorMessage name="password" component="div" className="invalid-feedback position-absolute" />
                             </div>
-                           
+
                             {isLoading ? <button className='btn btn-primary'><i className="fa-solid fa-spinner fa-spin"></i></button> :
                                 <button type="submit" className="btn btn-primary">
                                     LOG IN

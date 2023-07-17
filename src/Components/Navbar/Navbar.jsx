@@ -2,9 +2,24 @@
 
 
 import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { logout } from '../../Redux/authSlice.js';
 
 export default function Navbar() {
+
+    const { user } = useSelector(({ auth }) => auth)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    // console.log(user);
+
+    const signout = ()=>{
+        dispatch(logout())
+        navigate("/")
+    }
+    // console.log(id);
+
+
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div className="container-fluid">
@@ -24,27 +39,31 @@ export default function Navbar() {
                             <Link className="nav-link" to="./movies">Movies</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="./profile">profile</Link>
+                            <Link className="nav-link" to="./users">Users</Link>
                         </li>
                     </ul>
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                        <li className="nav-item">
-                            <Link className="nav-link" to="./login">log in</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="./signup">Register</Link>
-                        </li>
-                        <li className="nav-item dropdown">
+                        {user._id ? <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown
+                                {user?.name}
                             </Link>
                             <ul className="dropdown-menu">
-                                <li><Link className="dropdown-item" to="#">Action</Link></li>
-                                <li><Link className="dropdown-item" to="#">Another action</Link></li>
+                                <li><Link className="dropdown-item" to={`/users/search/${user._id}`}>Profile</Link></li>
+                                <li><Link className="dropdown-item" to="">Another action</Link></li>
                                 <li><hr className="dropdown-divider" /></li>
-                                <li><Link className="dropdown-item" to="#">Something else here</Link></li>
+                                <li><Link className="dropdown-item" onClick={signout}>LogOut</Link></li>
                             </ul>
-                        </li>
+                        </li> : <>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="./login">log in</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="./signup">Register</Link>
+                            </li>
+                        </>}
+
+                        
+                        
                     </ul>
                     <form className="d-flex" role="search">
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />

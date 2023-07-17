@@ -22,3 +22,6 @@ export const toPost = (id)=>{
   console.log(id);
   return <Navigate to={`/posts/search/${id}`} />
 }
+
+
+export const baseUrl = 'https://themoviesdata-com.onrender.com'

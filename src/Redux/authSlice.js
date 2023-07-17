@@ -1,0 +1,112 @@
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { baseUrl, headers } from "../Util/Util.js";
+import axios from "axios";
+
+
+const initialState = { user: {}, isLoading: false, id: '', errorMsg: "" }
+
+
+export const signUp = createAsyncThunk("authen/signup", async (values) => {
+    // console.log(values);
+    return await axios.post(`${baseUrl}/users/signup`, values).then((result) => {
+        // console.log(result);
+        return result.data
+    }).catch((error) => {
+        // console.log(error);
+        return error
+    })
+})
+export const signin = createAsyncThunk("authen/signin", async (values) => {
+    // console.log(values);
+    return await axios.post(`${baseUrl}/users/login`, values).then((result) => {
+        console.log(result);
+        return result.data
+    }).catch((error) => {
+        // console.log(error);
+        return error
+    })
+})
+
+
+const saveUserData = (id) => {
+    localStorage.setItem("userId", id)
+}
+
+export const getUserData = createAsyncThunk("authen/user", async () => {
+    if (localStorage.getItem('userId')) {
+        const id = localStorage.getItem('userId')
+        const { data } = await axios({
+            method: "GET",
+            url: `${baseUrl}/users/search/${id}`,
+            headers
+        }).then(result => result)
+            .catch(error => error)
+        // console.log(data);
+        return data
+    } else {
+        return null
+    }
+})
+
+
+
+const authSlice = createSlice({
+    name: "authen",
+    initialState,
+    reducers: {
+        logout: (state, actions) => {
+            state.user = {}
+            localStorage.removeItem("userId")
+        }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(signUp.pending, (state, actions) => {
+            state.isLoading = true
+            state.errorMsg = ''
+        });
+        builder.addCase(signUp.fulfilled, (state, actions) => {
+            // console.log(actions);
+            state.isLoading = false
+            if (actions.payload.message == 'success') {
+                state.user = actions.payload.user
+                state.id = actions.payload.user._id
+                saveUserData(actions.payload.user._id)
+            } else {
+                state.errorMsg = actions.payload.param
+                state.isLoading = false
+            }
+        })
+        builder.addCase(signUp.rejected, (state, actions) => {
+            state.isLoading = false
+        })
+        builder.addCase(signin.pending, (state, actions) => {
+            state.isLoading = true
+            state.errorMsg = ''
+        });
+        builder.addCase(signin.fulfilled, (state, actions) => {
+            // console.log(actions);
+            state.isLoading = false
+            if (actions.payload.message == 'success') {
+                state.user = actions.payload.user
+                state.id = actions.payload.user._id
+                saveUserData(actions.payload.user._id)
+            } else {
+                state.errorMsg = actions.payload.param
+                // state.isLoading = false
+            }
+        })
+        builder.addCase(signin.rejected, (state, actions) => {
+            state.isLoading = false
+        })
+        builder.addCase(getUserData.fulfilled, (state, actions) => {
+            // console.log(actions);
+            if (actions.payload != null) state.user = actions.payload.user
+
+        })
+
+    }
+})
+
+
+export const { logout } = authSlice.actions
+export const authReducer = authSlice.reducer;
