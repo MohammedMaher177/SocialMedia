@@ -4,13 +4,15 @@
 import React, { useState } from 'react'
 import { addPost } from '../../Redux/postsSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
+import PopUpAlert from '../PopUpAlert/PopUpAlert.jsx';
 
 
 
 
 export default function CreatePost() {
     const [post, setPost] = useState(false)
+    const [show, setShow] = useState(false);
     const { _id } = useSelector(({ auth }) => auth.user)
     // console.log(_id);
     const [formData, setFormData] = useState({ title: "", content: "" });
@@ -26,8 +28,12 @@ export default function CreatePost() {
     }
 
     const createPost = async () => {
+        if (!_id) {
+            setShow(true)
+            return
+        }
         formData.authorId = _id
-        
+
         dispatch(addPost(formData))
         // console.log(values);
     }
@@ -54,7 +60,9 @@ export default function CreatePost() {
                     </Form>
                 )}
             </Formik>
-
+            <button className='btn btn-outline-primary d-none'>
+                <PopUpAlert show={show} setShow={setShow} />
+            </button>
 
         </>
     )

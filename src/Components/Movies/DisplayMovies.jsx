@@ -9,7 +9,7 @@ export default function DisplayMovies({ movie }) {
 
                 <h2>{movie.title}</h2>
                 <div className='mb-3 row justify-content-between'>
-                    <div className=' col-4'>
+                    <div className=' col-4 border border-1 p-2 rounded-3'>
                         <h5>awards:</h5>
                         <div className='d-flex justify-content-between'>
 
@@ -17,7 +17,7 @@ export default function DisplayMovies({ movie }) {
                             <span>wins:{movie.awards.text}</span>
                         </div>
                     </div>
-                    <div className="col-4">
+                    <div className="col-4 border border-1 p-2 rounded-3">
                         <h5>imdb</h5>
                         <div className='d-flex justify-content-between'>
                             <span>rating:{movie.imdb.rating}<i className="fa-regular fa-star text-warning"></i></span>

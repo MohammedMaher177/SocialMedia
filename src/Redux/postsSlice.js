@@ -12,6 +12,9 @@ import { baseUrl, headers } from "../Util/Util.js";
 const initialState = { posts: [], isLoading: false, subPost: {} }
 
 
+
+
+
 const fetchData = async (method, endPoint = "") => {
     const { data } = await axios({
         method,
@@ -39,11 +42,40 @@ export const addPost = createAsyncThunk("posts/addPost", async (values) => {
     return data.message
 })
 
+export const likePost = createAsyncThunk("post/like", async(value, state)=>{
+    const { data } = await axios.post(`${baseUrl}/posts/like`, value)
+    .then(res => res)
+    .catch(err => err)
+    // console.log(data);
+    return data
+})
+
 const postsSlice = createSlice({
     name: "posts",
     initialState,
     reducers: {
-
+        unLike : (state, actions)=>{
+            const {userId, postId} = actions.payload
+            // console.log({userId, postId});
+            for(const post of state.posts){
+                if(post._id === postId){
+                   post.postLikes = post.postLikes.filter(userId => {
+                        return userId !== actions.payload.userId
+                    })
+                }
+            }
+            // console.log(state.posts);
+        },
+        like : (state, actions)=>{
+            const {userId, postId} = actions.payload
+            // console.log({userId, postId});
+            for(const post of state.posts){
+                if(post._id === postId){
+                   post.postLikes.push(userId)
+                }
+            }
+            // console.log(state.posts);
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getPosts.pending, (state, actions) => {
@@ -64,8 +96,23 @@ const postsSlice = createSlice({
             state.subPost = actions.payload
             state.isLoading = false
         });
+        builder.addCase(likePost.fulfilled, (state, actions) => {
+
+            if(actions.payload.message == 'success'){
+                if(actions.payload.param == 'Like'){
+                    
+                }
+                else if(actions.payload.param == 'Un Like'){
+                    
+
+                }
+            }
+            // state.posts.find()
+        })
     }
 })
 
 
 export const postsReducer = postsSlice.reducer;
+
+export const {unLike, like} = postsSlice.actions;
