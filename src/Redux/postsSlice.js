@@ -4,7 +4,8 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { baseUrl, headers } from "../Util/Util.js";
 
-const initialState = { posts: [], isLoading: false, subPost: {} };
+const initialState = { posts: [], isLoading: false, subPost: {} }
+
 
 const fetchData = async (method, endPoint = "") => {
   const { data } = await axios({
@@ -52,75 +53,36 @@ export const createPostComment = createAsyncThunk(
       .then((res) => res)
       .catch((err) => err);
     console.log(data);
-    return data;
-  }
-);
+    return data.message
+})
 
 const postsSlice = createSlice({
-  name: "posts",
-  initialState,
-  reducers: {
-    unLike: (state, actions) => {
-      const { userId, postId } = actions.payload;
-      // console.log({userId, postId});
-      for (const post of state.posts) {
-        if (post._id === postId) {
-          post.postLikes = post.postLikes.filter((userId) => {
-            return userId !== actions.payload.userId;
-          });
-        }
-      }
-      // console.log(state.posts);
-    },
-    like: (state, actions) => {
-      const { userId, postId } = actions.payload;
-      // console.log({userId, postId});
-      for (const post of state.posts) {
-        if (post._id === postId) {
-          post.postLikes.push(userId);
-        }
-      }
-      // console.log(state.posts);
-    },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(getPosts.pending, (state, actions) => {
-      state.isLoading = true;
-    });
-    builder.addCase(getPosts.fulfilled, (state, actions) => {
-      state.posts = actions.payload;
-      state.isLoading = false;
-    });
-    builder.addCase(getPosts.rejected, (state, actions) => {
-      state.isLoading = false;
-    });
+    name: "posts",
+    initialState,
+    reducers: {
 
-    builder.addCase(getSubPost.pending, (state, actions) => {
-      state.isLoading = true;
-    });
-    builder.addCase(getSubPost.fulfilled, (state, actions) => {
-      state.subPost = actions.payload;
-      state.isLoading = false;
-    });
-    builder.addCase(likePost.fulfilled, (state, actions) => {
-      if (actions.payload.message == "success") {
-        if (actions.payload.param == "Like") {
-        } else if (actions.payload.param == "Un Like") {
-        }
-      }
-    });
-    builder.addCase(createPostComment.pending, (state, actions) => {
-      state.isLoading = true;
-    });
-    builder.addCase(createPostComment.fulfilled, (state, actions) => {
-      console.log(actions.payload);
-      console.log(state.subPost);
-      state.subPost = actions.payload.new_post;
-      state.isLoading = false;
-    });
-  },
-});
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getPosts.pending, (state, actions) => {
+            state.isLoading = true
+        });
+        builder.addCase(getPosts.fulfilled, (state, actions) => {
+            state.posts = actions.payload
+            state.isLoading = false
+        });
+        builder.addCase(getPosts.rejected, (state, actions) => {
+            state.isLoading = false
+        });
+
+        builder.addCase(getSubPost.pending, (state, actions) => {
+            state.isLoading = true
+        });
+        builder.addCase(getSubPost.fulfilled, (state, actions) => {
+            state.subPost = actions.payload
+            state.isLoading = false
+        });
+    }
+})
+
 
 export const postsReducer = postsSlice.reducer;
-
-export const { unLike, like } = postsSlice.actions;

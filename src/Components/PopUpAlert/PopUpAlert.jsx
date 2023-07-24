@@ -56,5 +56,5 @@ export default function PopUpAlert({ show, setShow }) {
         </Modal.Footer>
       </Modal>
     </>
-  );
+  )
 }
