@@ -6,7 +6,8 @@ const initialState = {
     user:{
 
     },
-    posts:[]
+    posts:[],
+    isLoading : false
 }
 
 
@@ -28,9 +29,13 @@ const proflieSlice = createSlice({
     reducers:{
 
     },extraReducers:(builder)=>{
+        builder.addCase(getProfileData.pending, (state, actions) => {
+            state.isLoading = true
+        } )
         builder.addCase(getProfileData.fulfilled, (state, actions) => {
             state.user = actions.payload.user
             state.posts = actions.payload.posts
+            state.isLoading = false
         } )
     }
 })

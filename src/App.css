@@ -32,28 +32,40 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
 
 
-.post textarea{
+.post textarea {
   height: 100px;
   animation: postAnim 1s;
 }
 
 @keyframes postAnim {
-   from {
+  from {
     height: 0px;
   }
+
   to {
     height: 100px;
   }
 }
 
-.sec{
-  height: 30vh;
+.sec {
+  max-height: 30vh;
+  min-height: 20vh;
   overflow-x: auto;
-  
+
+}
+
+
+.title {
+  transition: all 0.5s;
+}
+
+.title:hover {
+  color: rgb(13, 110, 253) !important;
 }

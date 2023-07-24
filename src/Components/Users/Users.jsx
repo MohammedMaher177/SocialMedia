@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllUsers } from '../../Redux/usersSlice.js';
 import DisplayUser from './DisplayUser.jsx';
 import Loading from '../Loading/Loading.jsx';
+import { Helmet } from 'react-helmet';
 
 export default function Users() {
 
@@ -18,6 +19,9 @@ export default function Users() {
   }, [])
   return (
     <div className='pt-3'>
+      <Helmet >
+      <title>My Social Media APP / Users</title>
+      </Helmet>
       {isLoading ? <Loading /> : users?.map(user => <DisplayUser user={user} key={user._id} />)}
 
 
