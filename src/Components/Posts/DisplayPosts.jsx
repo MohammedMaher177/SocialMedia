@@ -64,16 +64,9 @@ export default function DisplayPosts({ post }) {
 
                 <p>{post.content}</p>
                 <div>
-                    {post.postLikes.includes(userId) ? <button className='btn me-2 p-0' onClick={() => getLikePost(post._id)}>
-                        <i className="fa-solid fa-toggle-on btn btn-primary">
-                            <span className='badge badge-secondary text-dark'>{post.postLikes.length}</span>
-                        </i>
-                    </button> : <button className='btn me-2 p-0' onClick={() => getLikePost(post._id)}>
-                        <i className="fa-solid fa-toggle-on btn btn-outline-primary">
-                            <span className='badge badge-secondary text-dark'>{post.postLikes.length}</span>
-                        </i>
-                    </button>
-                    }
+                {!post.postLikes?.includes(userId) ?
+            <button className='btn btn-outline-primary' onClick={() => getLikePost(post?._id)}><i className="fa-solid fa-heart"><span className='badge badge-secondary text-dark'>{post.postLikes?.length}</span></i></button> :
+            <button className='btn btn-primary' onClick={() => getLikePost(post?._id)}><i className="fa-regular fa-heart"><span className='badge badge-secondary text-dark'>{post.postLikes?.length}</span></i></button>}
                     <Link to={`/posts/search/${post._id}`} >
                         <button className='btn btn-outline-primary'><i className="fa-regular fa-comment"></i><span className=' badge badge-secondary text-primary'>{post.postComments.length}</span></button>
                     </Link>

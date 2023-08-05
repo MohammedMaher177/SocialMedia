@@ -3,8 +3,7 @@ import { Modal, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-router-dom";
 
-export default function PopUpAlert({show, setShow}) {
-
+export default function PopUpAlert({ show, setShow }) {
   const handleOpen = () => setShow(true);
   const handleClose = () => setShow(false);
   return (
@@ -43,15 +42,19 @@ export default function PopUpAlert({show, setShow}) {
             Close Windwo
           </Button>
           <div className="d-flex">
-            <Button variant="success d-flex mx-2" >
-              <Link className="text-decoration-none text-white">LOG IN</Link>
+            <Button variant="success d-flex mx-2">
+              <Link className="text-decoration-none text-white" to={"/login"}>
+                LOG IN
+              </Link>
             </Button>
-            <Button variant="success d-flex " >
-              <Link className="text-decoration-none text-white">REGISTER NOW</Link>
+            <Button variant="success d-flex ">
+              <Link className="text-decoration-none text-white" to={"/signup"}>
+                REGISTER NOW
+              </Link>
             </Button>
           </div>
         </Modal.Footer>
       </Modal>
     </>
-  );
+  )
 }

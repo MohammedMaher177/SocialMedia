@@ -1,8 +1,3 @@
-
-
-
-
-
 //https://themoviesdata-com.onrender.com/posts
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
@@ -12,17 +7,14 @@ import { baseUrl, headers } from "../Util/Util.js";
 const initialState = { posts: [], isLoading: false, subPost: {} }
 
 
-
-
-
 const fetchData = async (method, endPoint = "") => {
     const { data } = await axios({
         method,
         url: `${baseUrl}/posts/${endPoint}`,
-        headers
-    })
-    return data
-}
+        headers,
+    });
+    return data;
+};
 
 export const getPosts = createAsyncThunk('posts/getPosts', async () => {
     const { result } = await fetchData("GET", "getSortedposts")
@@ -59,7 +51,7 @@ export const likePost = createAsyncThunk("post/like", async (value, state) => {
 
 export const deletePost = createAsyncThunk("post/delete", async (value) => {
     console.log(value);
-    const headers = { authorizathion : value.token }
+    const headers = { authorizathion: value.token }
     const { data } = await axios.delete(`${baseUrl}/posts/${value.postId}`, { headers })
     console.log(data);
     return data
@@ -70,8 +62,8 @@ export const updatePost = createAsyncThunk("post/update", async (value) => {
     const { values, token, _id } = value
     console.log(value);
 
-    const headers = { authorizathion : token }
-    const { data } = await axios.put(`${baseUrl}/posts/${_id}`, { title:values.title, content : values.content }, { headers })
+    const headers = { authorizathion: token }
+    const { data } = await axios.put(`${baseUrl}/posts/${_id}`, { title: values.title, content: values.content }, { headers })
     console.log(data);
     return data
 })
@@ -115,6 +107,13 @@ const postsSlice = createSlice({
             state.isLoading = false
         });
 
+        builder.addCase(likePost.fulfilled, (state, actions) => {
+            console.log(actions.payload);
+            if (actions.payload.post._id === state.subPost._id) {
+                state.subPost.postLikes = actions.payload.post.postLikes;
+            }
+        })
+
         builder.addCase(getSubPost.pending, (state, actions) => {
             state.isLoading = true
         });
@@ -129,15 +128,15 @@ const postsSlice = createSlice({
         })
         builder.addCase(deletePost.fulfilled, (state, actions) => {
             console.log(actions.payload);
-            if(actions.payload.message === "succes"){
+            if (actions.payload.message === "succes") {
                 state.posts = state.posts.filter(post => post._id !== actions.payload.result._id)
             }
         })
         builder.addCase(updatePost.fulfilled, (state, actions) => {
-            if(actions.payload.message == "success"){
+            if (actions.payload.message == "success") {
                 console.log(actions.payload);
                 const postIndex = state.posts.findIndex(post => post._id == actions.payload.result._id)
-                if(postIndex != -1){
+                if (postIndex != -1) {
                     state.posts[postIndex] = actions.payload.result;
                 }
             }
