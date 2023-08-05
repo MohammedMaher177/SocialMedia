@@ -14,6 +14,7 @@ import store from './Redux/Store.js';
 import Profile from './Components/Profile/Profile.jsx';
 import PostWithComments from './Components/Posts/PostWithComments.jsx';
 import Users from './Components/Users/Users.jsx';
+import { Toaster } from 'react-hot-toast';
 
 
 
@@ -42,6 +43,7 @@ function App() {
   return (
     <div className="App">
       <Provider store={store}>
+        <Toaster  position="top-right" reverseOrder={false}/>
         <RouterProvider router={router}>
           <Layout />
         </RouterProvider>

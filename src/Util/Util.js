@@ -24,4 +24,4 @@ export const toPost = (id)=>{
 }
 
 
-export const baseUrl = 'https://themoviesdata-com.onrender.com'
+export const baseUrl = 'https://themoviesdata-com.onrender.com/api/v1'

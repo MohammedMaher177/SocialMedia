@@ -23,7 +23,9 @@ export default function Profile() {
         const user = await dispatch(getProfileData(id))
     }
 
-    const { user, posts, isLoading } = useSelector(({ profile }) => profile)
+    const { user, isLoading } = useSelector(({ profile }) => profile)
+    const {posts}  = useSelector(({ posts }) => posts)
+
     useEffect(() => {
         getProfile()
     }, [])

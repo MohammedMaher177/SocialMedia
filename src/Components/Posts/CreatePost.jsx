@@ -6,6 +6,7 @@ import { addPost } from '../../Redux/postsSlice.js';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import PopUpAlert from '../PopUpAlert/PopUpAlert.jsx';
+import toast from 'react-hot-toast';
 
 
 
@@ -13,8 +14,7 @@ import PopUpAlert from '../PopUpAlert/PopUpAlert.jsx';
 export default function CreatePost() {
     const [post, setPost] = useState(false)
     const [show, setShow] = useState(false);
-    const { _id } = useSelector(({ auth }) => auth.user)
-    // console.log(_id);
+    const { token } = useSelector(({ auth }) => auth)
     const [formData, setFormData] = useState({ title: "", content: "" });
     const dispatch = useDispatch()
     const handlePost = (e) => {
@@ -24,18 +24,18 @@ export default function CreatePost() {
             ...prevFormData,
             [name]: value,
         }));
-        // console.log(formData);
     }
 
     const createPost = async () => {
-        if (!_id) {
+        if (token == null) {
             setShow(true)
             return
         }
-        formData.authorId = _id
-
-        dispatch(addPost(formData))
-        // console.log(values);
+        toast.loading("LOADING...")
+        await dispatch(addPost({ formData, token }))
+        toast.remove()
+        toast.success("Posted successuflly");
+        setFormData({ title: "", content: "" })
     }
 
 
@@ -47,14 +47,14 @@ export default function CreatePost() {
 
             >
                 {() => (
-                    <Form className='mb-5'>
+                    <Form className='my-5'>
                         <div className="form-group">
-                            <label htmlFor="title" className='text-primary fs-4 d-flex me-auto'>Title</label>
-                            <input onChange={handlePost} type="text" className="form-control" id="title" name="title" required placeholder='please write atitle for a post' />
+                            <label htmlFor="title" className='text-primary fs-4 d-flex me-auto' >Title</label>
+                            <input onChange={handlePost} type="text" className="form-control" value={formData.title} id="title" name="title" required placeholder='please write atitle for a post' />
                         </div>
                         {post && <div className="form-group position-relative post">
                             <label htmlFor="content" className='text-primary fs-4 d-flex me-auto'>content</label>
-                            <textarea className="form-control" id="content" name="content" required rows="8" cols="50" onChange={handlePost}></textarea>
+                            <textarea className="form-control" id="content" name="content" value={formData.content} required rows="8" cols="50" onChange={handlePost}></textarea>
                             <button type="submit" className="btn btn-primary position-absolute end-0 bottom-0">Create Post</button>
                         </div>}
                     </Form>
@@ -63,6 +63,7 @@ export default function CreatePost() {
             <button className='btn btn-outline-primary d-none'>
                 <PopUpAlert show={show} setShow={setShow} />
             </button>
+
 
         </>
     )

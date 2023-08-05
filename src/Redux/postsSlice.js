@@ -25,28 +25,54 @@ const fetchData = async (method, endPoint = "") => {
 }
 
 export const getPosts = createAsyncThunk('posts/getPosts', async () => {
-    const { result } = await fetchData("GET")
+    const { result } = await fetchData("GET", "getSortedposts")
+    // const { result } = await fetchData("GET")
+    // console.log(result);
     return result
 })
+
 export const getSubPost = createAsyncThunk('posts/getSubPost', async (id) => {
     const { result } = await fetchData("GET", `search/${id}`)
     return result
 })
 
 export const addPost = createAsyncThunk("posts/addPost", async (values) => {
-    console.log(values);
-    const { data } = await axios.post(`${baseUrl}/posts`, values)
-    .then(res => res)
-    .catch(err => err)
-    console.log(data);
-    return data.message
+    const headers = { authorizathion: values.token }
+    // console.log(headers);
+    const { data } = await axios.post(`${baseUrl}/posts`, values.formData, {
+        headers
+    })
+        .then(res => res)
+        .catch(err => err)
+    // console.log(data);
+    return data
 })
 
-export const likePost = createAsyncThunk("post/like", async(value, state)=>{
-    const { data } = await axios.post(`${baseUrl}/posts/like`, value)
-    .then(res => res)
-    .catch(err => err)
+export const likePost = createAsyncThunk("post/like", async (value, state) => {
+    const { headers, postId } = value
+    const { data } = await axios.post(`${baseUrl}/posts/like`, { postId }, { headers })
+        .then(res => res)
+        .catch(err => err)
     // console.log(data);
+    return data
+})
+
+export const deletePost = createAsyncThunk("post/delete", async (value) => {
+    console.log(value);
+    const headers = { authorizathion : value.token }
+    const { data } = await axios.delete(`${baseUrl}/posts/${value.postId}`, { headers })
+    console.log(data);
+    return data
+})
+
+
+export const updatePost = createAsyncThunk("post/update", async (value) => {
+    const { values, token, _id } = value
+    console.log(value);
+
+    const headers = { authorizathion : token }
+    const { data } = await axios.put(`${baseUrl}/posts/${_id}`, { title:values.title, content : values.content }, { headers })
+    console.log(data);
     return data
 })
 
@@ -54,24 +80,24 @@ const postsSlice = createSlice({
     name: "posts",
     initialState,
     reducers: {
-        unLike : (state, actions)=>{
-            const {userId, postId} = actions.payload
+        unLike: (state, actions) => {
+            const { userId, postId } = actions.payload
             // console.log({userId, postId});
-            for(const post of state.posts){
-                if(post._id === postId){
-                   post.postLikes = post.postLikes.filter(userId => {
+            for (const post of state.posts) {
+                if (post._id === postId) {
+                    post.postLikes = post.postLikes.filter(userId => {
                         return userId !== actions.payload.userId
                     })
                 }
             }
             // console.log(state.posts);
         },
-        like : (state, actions)=>{
-            const {userId, postId} = actions.payload
+        like: (state, actions) => {
+            const { userId, postId } = actions.payload
             // console.log({userId, postId});
-            for(const post of state.posts){
-                if(post._id === postId){
-                   post.postLikes.push(userId)
+            for (const post of state.posts) {
+                if (post._id === postId) {
+                    post.postLikes.push(userId)
                 }
             }
             // console.log(state.posts);
@@ -96,18 +122,25 @@ const postsSlice = createSlice({
             state.subPost = actions.payload
             state.isLoading = false
         });
-        builder.addCase(likePost.fulfilled, (state, actions) => {
-
-            if(actions.payload.message == 'success'){
-                if(actions.payload.param == 'Like'){
-                    
-                }
-                else if(actions.payload.param == 'Un Like'){
-                    
-
+        builder.addCase(addPost.fulfilled, (state, actions) => {
+            if (actions.payload.message == "success") {
+                state.posts.unshift(actions.payload.result)
+            }
+        })
+        builder.addCase(deletePost.fulfilled, (state, actions) => {
+            console.log(actions.payload);
+            if(actions.payload.message === "succes"){
+                state.posts = state.posts.filter(post => post._id !== actions.payload.result._id)
+            }
+        })
+        builder.addCase(updatePost.fulfilled, (state, actions) => {
+            if(actions.payload.message == "success"){
+                console.log(actions.payload);
+                const postIndex = state.posts.findIndex(post => post._id == actions.payload.result._id)
+                if(postIndex != -1){
+                    state.posts[postIndex] = actions.payload.result;
                 }
             }
-            // state.posts.find()
         })
     }
 })
@@ -115,4 +148,4 @@ const postsSlice = createSlice({
 
 export const postsReducer = postsSlice.reducer;
 
-export const {unLike, like} = postsSlice.actions;
+export const { unLike, like } = postsSlice.actions;

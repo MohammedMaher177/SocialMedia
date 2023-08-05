@@ -15,7 +15,7 @@ export default function Movies() {
 
   const dispatch = useDispatch()
   const getAllMovies = async () => {
-    const movies = await dispatch(getMovies())
+   await dispatch(getMovies())
     //  console.log(movies);
   }
   const { movies, isLoading } = useSelector(({ movies }) => movies)

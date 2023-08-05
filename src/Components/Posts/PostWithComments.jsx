@@ -34,6 +34,11 @@ export default function PostWithComments() {
 
   }
 
+  const addFriend = (authorId, userId)=>{
+
+    console.log({authorId, userId});
+  }
+
   useEffect(() => {
     getPostData(id)
   }, [])
@@ -50,7 +55,8 @@ export default function PostWithComments() {
             <Link to={`/users/search/${post?.authorId?._id}`} >
               <h2 className=' text-primary clickable'>{post?.authorId?.name}<i className="fa-regular fa-address-card mx-1"></i></h2>
             </Link>
-            <button disabled className='btn btn-primary'>Follow<div className='text-white-50'>not avilable now</div></button>
+            {/* <button disabled className='btn btn-primary'>Follow<div className='text-white-50'>not avilable now</div></button> */}
+            {post.authorId._id !== userId && <button className='btn btn-primary' onClick={()=>addFriend(post.authorId._id, userId)}>Add Friend<i className="fa-solid fa-user-plus mx-2"></i></button>}
           </div>
           <h4>{post?.title}</h4>
           <div className='d-flex'>

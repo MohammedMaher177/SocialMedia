@@ -6,6 +6,7 @@ import Navbar from '../Navbar/Navbar.jsx';
 import Footer from '../Footer/Footer.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserData } from '../../Redux/authSlice.js';
+import { getPosts } from '../../Redux/postsSlice.js';
 
 
 
@@ -17,6 +18,7 @@ export default function Layout(props) {
     const { user } = useSelector(({ auth }) => auth)
     const getUser = async () => {
        await dispatch(getUserData())
+       await dispatch(getPosts())
     }
 
    

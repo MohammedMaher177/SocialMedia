@@ -5,7 +5,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { logout } from '../../Redux/authSlice.js';
-
+import fav from './favicon.png'
 export default function Navbar() {
 
     const { user } = useSelector(({ auth }) => auth)
@@ -23,7 +23,7 @@ export default function Navbar() {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div className="container-fluid">
-                <NavLink className="navbar-brand" to="/">Navbar</NavLink>
+                <NavLink className="navbar-brand" to="/"><img src={fav} alt="" style={{width:"45px"}}/> Social Media App</NavLink>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
@@ -65,10 +65,10 @@ export default function Navbar() {
                         
                         
                     </ul>
-                    <form className="d-flex" role="search">
+                    {/* <form className="d-flex" role="search">
                         <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
                         <button className="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    </form> */}
                 </div>
             </div>
         </nav>
