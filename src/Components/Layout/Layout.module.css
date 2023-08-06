@@ -1,0 +1,20 @@
+
+
+.bdg{
+    position: fixed;
+    top: 10%;
+    /* right: 50%; */
+    left: 50%;
+    transform: translatex(-50%);
+    /* background-color: red; */
+    opacity: 0.9;
+}
+
+@media screen and (max-width: 768px){
+    .bdg{
+        position: absolute;
+        color: black;
+        top: 12%;
+        font-size: 20px;
+    }
+}

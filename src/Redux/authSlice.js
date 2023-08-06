@@ -81,12 +81,12 @@ const authSlice = createSlice({
             state.errorMsg = ''
         });
         builder.addCase(signUp.fulfilled, (state, actions) => {
-            // console.log(actions);
+            console.log(actions.payload);
             state.isLoading = false
             if (actions.payload.message == 'success') {
                 state.user = actions.payload.user
                 state.id = actions.payload.user._id
-                saveUserData(actions.payload.token)
+                // saveUserData(actions.payload.token)
             } else {
                 state.errorMsg = actions.payload.param
                 state.isLoading = false

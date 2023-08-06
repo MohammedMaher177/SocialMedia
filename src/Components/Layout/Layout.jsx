@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getUserData } from '../../Redux/authSlice.js';
 import { getPosts } from '../../Redux/postsSlice.js';
 
-
+import styles from "./Layout.module.css"
 
 
 
@@ -28,8 +28,8 @@ export default function Layout(props) {
     return (
         <div>
             <Navbar />
-            <div className='main py-5 container'>
-            {!user._id && <h2>To Join our website please <Link to={`/signup`} className=' text-decoration-none'>Register now</Link> or <Link to={`/login`} className=' text-decoration-none'>Log in</Link></h2>}
+            <div className='main py-5 container-fluid'>
+            {!user._id && <h2 className={styles.bdg}>To Join our website please <Link to={`/signup`} className=' text-decoration-none'>Register now</Link> or <Link to={`/login`} className=' text-decoration-none'>Log in</Link></h2>}
                 <Outlet>
                 </Outlet>
             </div>

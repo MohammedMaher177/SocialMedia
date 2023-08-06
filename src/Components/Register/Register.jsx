@@ -3,9 +3,9 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup'
 import { signUp } from '../../Redux/authSlice.js';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-
+import styles from "../Login/login.module.css"
 
 
 
@@ -50,127 +50,132 @@ export default function Register() {
     }
     const onSubmit = async (values) => {
         const { payload } = await dispatch(signUp(values))
-        if (payload.message = 'success') {
-            navigate("/")
+        if (payload.user) {
+            navigate("/login")
         }
     };
 
     return (
         <>
-            <div className=' container py-5 bg-main'>
-                <h2 className='p-4 bg-secondary text-white-50 rounded rounded-2 d-flex me-auto'>CREATE ACCOUNT</h2>
-                {errorMsg != '' && <div className='alert alert-danger'>{errorMsg}</div>}
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={schema}
-                    onSubmit={onSubmit}
-                    onChange={handleChange}
-                >
-                    {({ errors, touched }) => (
-                        <Form>
-                            {/* name */}
-                            <div className="form-group position-relative mb-5">
-                                <label htmlFor="name" className='text-info text-opacity-75 d-flex me-auto fs-4'>Name</label>
-                                <Field
-                                    type="text"
-                                    id="name"
-                                    name="name"
+            <div className={`container-fluid py-5 bg-main ${styles.login}`}>
+                <div className={`${styles.login_form} py-5 px-3`}>
+                    <h2 className={` text-white-50 d-flex  mb-3 me-auto border-bottom ${styles.login_title}`}>CREATE ACCOUNT</h2>
+                    <h4 className='d-flex  mb-3 text-white-50'>Welcome onboard with us!</h4>
+                    {errorMsg != '' && <div className='alert alert-danger'>{errorMsg}</div>}
+                    <Formik
+                        initialValues={initialValues}
+                        validationSchema={schema}
+                        onSubmit={onSubmit}
+                        onChange={handleChange}
+                    >
+                        {({ errors, touched }) => (
+                            <Form>
+                                {/* name */}
+                                <div className="form-group position-relative mb-5">
+                                    <label htmlFor="name" className={`d-flex me-auto mb-2 ${styles.login_lable}`}>Name</label>
+                                    <Field
+                                        type="text"
+                                        id="name"
+                                        name="name"
 
-                                    className={errors.name && touched.name ? "form-control is-invalid" : "form-control"}
-                                />
-                                <ErrorMessage name="name" component="div" className="invalid-feedback position-absolute" />
-                            </div>
-                            {/* email */}
-                            <div className="form-group position-relative mb-5">
-                                <label htmlFor="email" className='text-info text-opacity-75 d-flex me-auto fs-4'>Email</label>
-                                <Field
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    className={
-                                        errors.email && touched.email ? "form-control is-invalid" : "form-control"
-                                    }
-                                />
-                                <ErrorMessage name="email" component="div" className="invalid-feedback position-absolute" />
-                            </div>
-                            {/* password */}
-                            <div className="form-group position-relative mb-5">
-                                <label htmlFor="password" className='text-info text-opacity-75 d-flex me-auto fs-4'>Password</label>
-                                <Field
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    className={
-                                        errors.password && touched.password
-                                            ? "form-control is-invalid"
-                                            : "form-control"
-                                    }
-                                />
-                                <ErrorMessage name="password" component="div" className="invalid-feedback position-absolute" />
-                            </div>
-                            {/* re pasword */}
-                            <div className="form-group position-relative mb-5">
-                                <label htmlFor="rePassword" className='text-info text-opacity-75 d-flex me-auto fs-4'>Confirm Password</label>
-                                <Field
-                                    type="password"
-                                    id="rePassword"
-                                    name="rePassword"
-                                    className={
-                                        errors.rePassword && touched.rePassword
-                                            ? "form-control is-invalid"
-                                            : "form-control"
-                                    }
-                                />
-                                <ErrorMessage name="rePassword" component="div" className="invalid-feedback position-absolute" />
-                            </div>
-                            {/* phone */}
-                            <div className="form-group position-relative mb-5">
-                                <label htmlFor="phone" className='text-info text-opacity-75 d-flex me-auto fs-4'>Phone</label>
-                                <Field
-                                    type="text"
-                                    id="phone"
-                                    name="phone"
-                                    className={
-                                        errors.phone && touched.phone ? "form-control is-invalid" : "form-control"
-                                    }
-                                />
-                                <ErrorMessage name="phone" component="div" className="invalid-feedback position-absolute" />
-                            </div>
-                            {/* age */}
-                            <div className="form-group position-relative mb-5">
-                                <label htmlFor="age" className='text-info text-opacity-75 d-flex me-auto fs-4'>age</label>
-                                <Field
-                                    type="text"
-                                    id="age"
-                                    name="age"
-                                    className={
-                                        errors.age && touched.age ? "form-control is-invalid" : "form-control"
-                                    }
-                                />
-                                <ErrorMessage name="age" component="div" className="invalid-feedback position-absolute" />
-                            </div>
-                            {/* gender */}
-                            <div className="form-group position-relative mb-5">
-                                <label className='text-info text-opacity-75 d-flex me-auto fs-4' htmlFor='gender'>Gender
-                                    {/* <label>Gender</label> */}
-                                    <Field name="gender" as="select"
+                                        className={errors.name && touched.name ? "form-control is-invalid" : "form-control"}
+                                    />
+                                    <ErrorMessage name="name" component="div" className="invalid-feedback position-absolute" />
+                                </div>
+                                {/* email */}
+                                <div className="form-group position-relative mb-5">
+                                    <label htmlFor="email" className={`d-flex me-auto mb-2 ${styles.login_lable}`}>Email</label>
+                                    <Field
+                                        type="email"
+                                        id="email"
+                                        name="email"
                                         className={
-                                            errors.gender && touched.gender ? "form-control is-invalid" : "form-control"
-                                        }>
-                                        <option value=""></option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                    </Field>
-                                </label>
-                            </div>
-                            {isLoading ? <button className='btn btn-primary'><i className="fa-solid fa-spinner fa-spin"></i></button> :
-                                <button type="submit" className="btn btn-primary">
-                                    REGISTER
-                                </button>
-                            }
-                        </Form>
-                    )}
-                </Formik>
+                                            errors.email && touched.email ? "form-control is-invalid" : "form-control"
+                                        }
+                                    />
+                                    <ErrorMessage name="email" component="div" className="invalid-feedback position-absolute" />
+                                </div>
+                                {/* password */}
+                                <div className="form-group position-relative mb-5">
+                                    <label htmlFor="password" className={`d-flex me-auto mb-2 ${styles.login_lable}`}>Password</label>
+                                    <Field
+                                        type="password"
+                                        id="password"
+                                        name="password"
+                                        className={
+                                            errors.password && touched.password
+                                                ? "form-control is-invalid"
+                                                : "form-control"
+                                        }
+                                    />
+                                    <ErrorMessage name="password" component="div" className="invalid-feedback position-absolute" />
+                                </div>
+                                {/* re pasword */}
+                                <div className="form-group position-relative mb-5">
+                                    <label htmlFor="rePassword" className={`d-flex me-auto mb-2 ${styles.login_lable}`}>Confirm Password</label>
+                                    <Field
+                                        type="password"
+                                        id="rePassword"
+                                        name="rePassword"
+                                        className={
+                                            errors.rePassword && touched.rePassword
+                                                ? "form-control is-invalid"
+                                                : "form-control"
+                                        }
+                                    />
+                                    <ErrorMessage name="rePassword" component="div" className="invalid-feedback position-absolute" />
+                                </div>
+                                {/* phone */}
+                                <div className="form-group position-relative mb-5">
+                                    <label htmlFor="phone" className={`d-flex me-auto mb-2 ${styles.login_lable}`}>Phone</label>
+                                    <Field
+                                        type="text"
+                                        id="phone"
+                                        name="phone"
+                                        className={
+                                            errors.phone && touched.phone ? "form-control is-invalid" : "form-control"
+                                        }
+                                    />
+                                    <ErrorMessage name="phone" component="div" className="invalid-feedback position-absolute" />
+                                </div>
+                                {/* age */}
+                                <div className="form-group position-relative mb-5">
+                                    <label htmlFor="age" className={`d-flex me-auto mb-2 ${styles.login_lable}`}>age</label>
+                                    <Field
+                                        type="text"
+                                        id="age"
+                                        name="age"
+                                        className={
+                                            errors.age && touched.age ? "form-control is-invalid" : "form-control"
+                                        }
+                                    />
+                                    <ErrorMessage name="age" component="div" className="invalid-feedback position-absolute" />
+                                </div>
+                                {/* gender */}
+                                <div className="form-group position-relative mb-5">
+                                    <label className={`d-flex me-auto mb-2 ${styles.login_lable}`} htmlFor='gender'>Gender
+                                        {/* <label>Gender</label> */}
+                                        <Field name="gender" as="select"
+                                            className={
+                                                errors.gender && touched.gender ? "form-control is-invalid" : "form-control"
+                                            }>
+                                            <option value="">Choose One</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </Field>
+                                    </label>
+                                </div>
+                                {isLoading ? <button className='btn btn-primary'><i className="fa-solid fa-spinner fa-spin"></i></button> :
+                                    <button type="submit" className={styles.login_btn}>
+                                        REGISTER
+                                    </button>
+                                }
+                                <div className={styles.to_register}>New to Logo? <Link to="/login" className={styles.to_register_link}> Login</Link> Here</div>
+
+                            </Form>
+                        )}
+                    </Formik>
+                </div>
             </div>
         </>
     )
