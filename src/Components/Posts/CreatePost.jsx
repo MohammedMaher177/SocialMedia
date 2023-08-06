@@ -49,13 +49,13 @@ export default function CreatePost() {
                 {() => (
                     <Form className='my-5'>
                         <div className="form-group">
-                            <label htmlFor="title" className='text-primary fs-4 d-flex me-auto' >Title</label>
+                            <label htmlFor="title" className='main_color fs-4 d-flex me-auto' >Title</label>
                             <input onChange={handlePost} type="text" className="form-control" value={formData.title} id="title" name="title" required placeholder='please write atitle for a post' />
                         </div>
                         {post && <div className="form-group position-relative post">
-                            <label htmlFor="content" className='text-primary fs-4 d-flex me-auto'>content</label>
+                            <label htmlFor="content" className='main_color fs-4 d-flex me-auto'>content</label>
                             <textarea className="form-control" id="content" name="content" value={formData.content} required rows="8" cols="50" onChange={handlePost}></textarea>
-                            <button type="submit" className="btn btn-primary position-absolute end-0 bottom-0">Create Post</button>
+                            <button type="submit" className="btn bg_main  position-absolute end-0 bottom-0">Create Post</button>
                         </div>}
                     </Form>
                 )}

@@ -7,7 +7,7 @@ import PopUpAlert from '../PopUpAlert/PopUpAlert.jsx'
 import DeletePostAlert from '../PopUpAlert/DeletePostAlert.jsx'
 import UpdatePostAlert from '../PopUpAlert/UpdatePostAlert.js'
 
-
+import styles from "../Login/login.module.css"
 export default function DisplayPosts({ post }) {
     // console.log(post);
     const dispatch = useDispatch()
@@ -38,15 +38,15 @@ export default function DisplayPosts({ post }) {
         <>
             <div className='border-bottom text-start p-3'>
                 <div className='d-flex justify-content-between'>
-                    <Link to={`/users/search/${post.authorId._id}`} >
-                        <h2 className=' text-primary clickable'>{post?.authorId?.name}<i className="fa-regular fa-address-card mx-1"></i></h2>
+                    <Link to={`/users/search/${post.authorId._id}`} className='text-decoration-none'>
+                        <h2 className=' main_color clickable'>{post?.authorId?.name}<i className="fa-regular fa-address-card mx-1"></i></h2>
                     </Link>
-                    {(post.authorId._id !== userId && post.authorId !== userId )?
-                        <button className='btn btn-primary'>Add Friend<i className="fa-solid fa-user-plus mx-2"></i></button> :
+                    {(post.authorId._id !== userId && post.authorId !== userId) ?
+                        <button className="add_friend_btn">Add Friend<i className="fa-solid fa-user-plus mx-2"></i></button> :
                         <h6><div className="dropdown open">
                             <button className="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false">
-                                    <span className="badge bg-secondary">Author</span>
+                                <span className="badge bg-secondary">Author</span>
                                 <i className="fa-solid fa-ellipsis"></i>
                             </button>
                             <div className="dropdown-menu p-0" aria-labelledby="triggerId">
@@ -64,11 +64,17 @@ export default function DisplayPosts({ post }) {
 
                 <p>{post.content}</p>
                 <div>
-                {!post.postLikes?.includes(userId) ?
-            <button className='btn btn-outline-primary' onClick={() => getLikePost(post?._id)}><i className="fa-solid fa-heart"><span className='badge badge-secondary text-dark'>{post.postLikes?.length}</span></i></button> :
-            <button className='btn btn-primary' onClick={() => getLikePost(post?._id)}><i className="fa-regular fa-heart"><span className='badge badge-secondary text-dark'>{post.postLikes?.length}</span></i></button>}
+                    {!post.postLikes?.includes(userId) ?
+                        <button className='me-2 btn btn_outline_main main_color' onClick={() => getLikePost(post?._id)}>
+                            <i className="fa-solid fa-heart"><span className='badge badge-secondary main_color'>{post.postLikes?.length}</span></i>
+                        </button> :
+                        <button className='me-2 btn bg_main main_color' onClick={() => getLikePost(post?._id)}>
+                            <i className="fa-regular fa-heart"><span className='badge badge-secondary main_color'>{post.postLikes?.length}</span></i>
+                        </button>}
                     <Link to={`/posts/search/${post._id}`} >
-                        <button className='btn btn-outline-primary'><i className="fa-regular fa-comment"></i><span className=' badge badge-secondary text-primary'>{post.postComments.length}</span></button>
+                        <button className='btn btn_outline_main main_color me-2'>
+                            <i className="fa-regular fa-comment"></i><span className=' badge badge-secondary main_color'>{post.postComments.length}</span>
+                        </button>
                     </Link>
                     <button className='btn btn-outline-primary d-none'>
                         <PopUpAlert show={show} setShow={setShow} />
@@ -77,10 +83,10 @@ export default function DisplayPosts({ post }) {
                 </div>
             </div>
             <button className='d-none'>
-                <DeletePostAlert show={showDelete} setShow={setShowDelete} id={post._id}/>
+                <DeletePostAlert show={showDelete} setShow={setShowDelete} id={post._id} />
             </button>
             <button className='d-none'>
-                <UpdatePostAlert show={showUpdate} setShow={setShowUpdate} post={post}/>
+                <UpdatePostAlert show={showUpdate} setShow={setShowUpdate} post={post} />
             </button>
 
         </>
