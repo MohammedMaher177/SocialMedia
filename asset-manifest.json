@@ -1,7 +1,8 @@
 {
   "files": {
-    "main.css": "/SocialMedia/static/css/main.4f60d548.css",
-    "main.js": "/SocialMedia/static/js/main.0320859d.js",
+    "main.css": "/SocialMedia/static/css/main.52b113d8.css",
+    "main.js": "/SocialMedia/static/js/main.b6291396.js",
+    "static/media/bg.png": "/SocialMedia/static/media/bg.5006d4607e60b6be61db.png",
     "static/media/fa-solid-900.ttf": "/SocialMedia/static/media/fa-solid-900.4a2cd718d7031b732e76.ttf",
     "static/media/fa-brands-400.ttf": "/SocialMedia/static/media/fa-brands-400.150de8eaa454d669c405.ttf",
     "static/media/fa-solid-900.woff2": "/SocialMedia/static/media/fa-solid-900.bb975c966c37455a1bc3.woff2",
@@ -13,11 +14,11 @@
     "static/media/fa-v4compatibility.woff2": "/SocialMedia/static/media/fa-v4compatibility.68577e40f3e70067b5da.woff2",
     "static/media/logo.svg": "/SocialMedia/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/SocialMedia/index.html",
-    "main.4f60d548.css.map": "/SocialMedia/static/css/main.4f60d548.css.map",
-    "main.0320859d.js.map": "/SocialMedia/static/js/main.0320859d.js.map"
+    "main.52b113d8.css.map": "/SocialMedia/static/css/main.52b113d8.css.map",
+    "main.b6291396.js.map": "/SocialMedia/static/js/main.b6291396.js.map"
   },
   "entrypoints": [
-    "static/css/main.4f60d548.css",
-    "static/js/main.0320859d.js"
+    "static/css/main.52b113d8.css",
+    "static/js/main.b6291396.js"
   ]
 }
