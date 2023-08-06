@@ -81,7 +81,7 @@ export default function Login() {
                                     <div className={styles.login_forgot}>Forgot Password</div>
                                 </div>
 
-                                {isLoading ? <button className='btn btn-primary'><i className="fa-solid fa-spinner fa-spin"></i></button> :
+                                {isLoading ? <button className={styles.login_btn}><i className="fa-solid fa-spinner fa-spin"></i></button> :
                                     <button type="submit" className={styles.login_btn}>
                                         LOG IN
                                     </button>
