@@ -29,7 +29,7 @@ export default function Movies() {
       <title>My Social Media APP / Movies</title>
       </Helmet>
 
-    {isLoading ? <Loading /> : movies?.map(movie => <DisplayMovies movie={movie} key={movie._id} />)}
+    {isLoading ? <Loading isLoading={isLoading}/> : movies?.map(movie => <DisplayMovies movie={movie} key={movie._id} />)}
 
   </div>
 

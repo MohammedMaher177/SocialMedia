@@ -71,7 +71,7 @@ export default function Register() {
                         {({ errors, touched }) => (
                             <Form>
                                 {/* name */}
-                                <div className="form-group position-relative mb-5">
+                                <div className="form-group position-relative mb-4">
                                     <label htmlFor="name" className={`d-flex me-auto mb-2 ${styles.login_lable}`}>Name</label>
                                     <Field
                                         type="text"
@@ -83,7 +83,7 @@ export default function Register() {
                                     <ErrorMessage name="name" component="div" className="invalid-feedback position-absolute" />
                                 </div>
                                 {/* email */}
-                                <div className="form-group position-relative mb-5">
+                                <div className="form-group position-relative mb-4">
                                     <label htmlFor="email" className={`d-flex me-auto mb-2 ${styles.login_lable}`}>Email</label>
                                     <Field
                                         type="email"
@@ -96,7 +96,7 @@ export default function Register() {
                                     <ErrorMessage name="email" component="div" className="invalid-feedback position-absolute" />
                                 </div>
                                 {/* password */}
-                                <div className="form-group position-relative mb-5">
+                                <div className="form-group position-relative mb-4">
                                     <label htmlFor="password" className={`d-flex me-auto mb-2 ${styles.login_lable}`}>Password</label>
                                     <Field
                                         type="password"
@@ -111,7 +111,7 @@ export default function Register() {
                                     <ErrorMessage name="password" component="div" className="invalid-feedback position-absolute" />
                                 </div>
                                 {/* re pasword */}
-                                <div className="form-group position-relative mb-5">
+                                <div className="form-group position-relative mb-4">
                                     <label htmlFor="rePassword" className={`d-flex me-auto mb-2 ${styles.login_lable}`}>Confirm Password</label>
                                     <Field
                                         type="password"
@@ -126,7 +126,7 @@ export default function Register() {
                                     <ErrorMessage name="rePassword" component="div" className="invalid-feedback position-absolute" />
                                 </div>
                                 {/* phone */}
-                                <div className="form-group position-relative mb-5">
+                                <div className="form-group position-relative mb-4">
                                     <label htmlFor="phone" className={`d-flex me-auto mb-2 ${styles.login_lable}`}>Phone</label>
                                     <Field
                                         type="text"
@@ -139,7 +139,7 @@ export default function Register() {
                                     <ErrorMessage name="phone" component="div" className="invalid-feedback position-absolute" />
                                 </div>
                                 {/* age */}
-                                <div className="form-group position-relative mb-5">
+                                <div className="form-group position-relative mb-4">
                                     <label htmlFor="age" className={`d-flex me-auto mb-2 ${styles.login_lable}`}>age</label>
                                     <Field
                                         type="text"
@@ -152,7 +152,7 @@ export default function Register() {
                                     <ErrorMessage name="age" component="div" className="invalid-feedback position-absolute" />
                                 </div>
                                 {/* gender */}
-                                <div className="form-group position-relative mb-5">
+                                <div className="form-group position-relative mb-4">
                                     <label className={`d-flex me-auto mb-2 ${styles.login_lable}`} htmlFor='gender'>Gender
                                         {/* <label>Gender</label> */}
                                         <Field name="gender" as="select"

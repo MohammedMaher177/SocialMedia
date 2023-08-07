@@ -30,7 +30,8 @@ export default function Posts() {
       <title>My Social Media APP / Posts</title>
     </Helmet>
     <CreatePost />
-    {isLoading ? <Loading /> : posts?.map(post => <DisplayPosts post={post} key={post._id} />)}
+    {/* <Skeleton loading={isLoading} active></Skeleton> */}
+    {isLoading ? <Loading isLoading={isLoading}/> : posts?.map(post => <DisplayPosts post={post} key={post._id} />)}
 
 
   </>

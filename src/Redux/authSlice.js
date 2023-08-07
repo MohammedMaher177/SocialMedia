@@ -30,30 +30,8 @@ export const signin = createAsyncThunk("authen/signin", async (values) => {
 
 
 const saveUserData = (id) => {
-    // console.log(id);
     localStorage.setItem("userId", id)
 }
-
-// export const getUserData = createAsyncThunk("authen/user", async () => {
-//     if (localStorage.getItem('userId')) {
-//         const token = localStorage.getItem('userId')
-//         console.log(jwtDecode(token));
-//         const { id } = jwtDecode(token)
-//         console.log(id);
-//         const { data } = await axios({
-//             method: "GET",
-//             url: `${baseUrl}/users/search/${id}`,
-//             headers
-//         }).then(result => result)
-//             .catch(error => error)
-//         // console.log(data);
-//         return data
-//     } else {
-//         return null
-//     }
-// })
-
-
 
 const authSlice = createSlice({
     name: "authen",
@@ -61,6 +39,7 @@ const authSlice = createSlice({
     reducers: {
         logout: (state, actions) => {
             state.user = {}
+            state.id = ''
             localStorage.removeItem("userId")
         },
         getUserData: (state, actions) => {

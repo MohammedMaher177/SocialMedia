@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { baseUrl, headers } from "../Util/Util.js";
 
-const initialState = { posts: [], isLoading: false, subPost: {} }
+const initialState = { posts: [], isLoading: false, subPost: {}}
 
 
 const fetchData = async (method, endPoint = "") => {
@@ -57,6 +57,15 @@ export const deletePost = createAsyncThunk("post/delete", async (value) => {
     return data
 })
 
+export const addComment = createAsyncThunk("comment/createComment", async (value) => {
+    const { body, token } = value
+    console.log(value);
+    const headers = { authorizathion: token }
+
+    const { data } = await axios.post(`${baseUrl}/posts/addComment`, body, {headers})
+    console.log(data);
+    return data.new_post
+})
 
 export const updatePost = createAsyncThunk("post/update", async (value) => {
     const { values, token, _id } = value
@@ -140,6 +149,10 @@ const postsSlice = createSlice({
                     state.posts[postIndex] = actions.payload.result;
                 }
             }
+        })
+        
+        builder.addCase(addComment.fulfilled, (state, actions) => {
+            state.subPost.postComments = actions.payload.postComments
         })
     }
 })

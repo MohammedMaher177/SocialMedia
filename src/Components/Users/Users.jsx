@@ -22,7 +22,7 @@ export default function Users() {
       <Helmet >
       <title>My Social Media APP / Users</title>
       </Helmet>
-      {isLoading ? <Loading /> : users?.map(user => <DisplayUser user={user} key={user._id} />)}
+      {isLoading ? <Loading isLoading={isLoading}/> : users?.map(user => <DisplayUser user={user} key={user._id} />)}
 
 
 

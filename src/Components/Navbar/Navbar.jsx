@@ -38,47 +38,50 @@ export default function Navbar() {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                            <NavLink className="nav-link" aria-current="page" to="/">Home</NavLink>
                         </li>
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <Link className="nav-link" to="./posts">posts</Link>
+                        </li> */}
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="./movies">Movies</NavLink>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="./movies">Movies</Link>
-                        </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="./users">Users</Link>
+                            <NavLink className="nav-link" to="./users">Users</NavLink>
                         </li>
                     </ul>
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                        {user._id ? <li className="nav-item dropdown">
-                            <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {user?.name}
-                            </Link>
-                            <ul className="dropdown-menu">
-                                <li><Link className="dropdown-item" to={`/users/search/${user._id}`}>Profile</Link></li>
-                                <li><Link className="dropdown-item" to="">Another action</Link></li>
-                                <li><hr className="dropdown-divider" /></li>
-                                <li><Link className="dropdown-item" onClick={signout}>LogOut</Link></li>
-                            </ul>
-                        </li> : <>
-                            <li className="nav-item">
-                                <Link className="nav-link" to="./login">log in</Link>
+                        {user._id ? <>
+                            <li className="nav-item dropdown">
+                                <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {user?.name}
+                                </Link>
+                                <ul className="dropdown-menu">
+                                    <li><Link className="dropdown-item" to={`/users/search/${user._id}`}>Profile</Link></li>
+                                    <li><Link className="dropdown-item" to="">Another action</Link></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li><Link className="dropdown-item" onClick={signout}>LogOut</Link></li>
+                                </ul>
                             </li>
+                            <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+                                <Form className="d-flex">
+                                    <Field type="text" name="name" className="form-control me-2" placeholder="Search" aria-label="Search" />
+                                    <button className="btn btn-outline-success" type="submit">Search</button>
+                                </Form>
+                            </Formik>
+                        </> : <>
                             <li className="nav-item">
-                                <Link className="nav-link" to="./signup">Register</Link>
+                                <NavLink className="nav-link" to="./login">log in</NavLink>
+                            </li>
+                            <li className="nav-item ms-3">
+                                <NavLink className="nav-link" to="./signup">Register</NavLink>
                             </li>
                         </>}
 
 
 
                     </ul>
-                    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-                        <Form className="d-flex">
-                            <Field type="text" name="name" className="form-control me-2"  placeholder="Search" aria-label="Search"/>
-                            <button className="btn btn-outline-success" type="submit">Search</button>
-                        </Form>
-                    </Formik>
+
                 </div>
             </div>
         </nav>

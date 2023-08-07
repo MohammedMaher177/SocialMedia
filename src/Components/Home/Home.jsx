@@ -15,7 +15,7 @@ export default function Home() {
         <div className='sec border border-2 rounded-3 mb-3'>
           <Movies />
         </div>
-        <h2><Link to="./posts" className=' text-decoration-none text-muted title'>POSTS</Link></h2>
+        <h2><Link to="/posts" className=' text-decoration-none text-muted title'>POSTS</Link></h2>
         <div className='sec border border-2 rounded-3 mb-3'>
           <Posts />
         </div>

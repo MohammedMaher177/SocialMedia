@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { getDateInDays } from '../../Util/Util.js'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { unLike, likePost, like, deletePost } from '../../Redux/postsSlice.js'
+import { unLike, likePost, like } from '../../Redux/postsSlice.js'
 import PopUpAlert from '../PopUpAlert/PopUpAlert.jsx'
 import DeletePostAlert from '../PopUpAlert/DeletePostAlert.jsx'
 import UpdatePostAlert from '../PopUpAlert/UpdatePostAlert.js'
@@ -43,17 +43,19 @@ export default function DisplayPosts({ post }) {
                     </Link>
                     {(post.authorId._id !== userId && post.authorId !== userId) ?
                         <button className="add_friend_btn">Add Friend<i className="fa-solid fa-user-plus mx-2"></i></button> :
-                        <h6><div className="dropdown open">
-                            <button className="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
-                                aria-expanded="false">
-                                <span className="badge bg-secondary">Author</span>
-                                <i className="fa-solid fa-ellipsis"></i>
-                            </button>
-                            <div className="dropdown-menu p-0" aria-labelledby="triggerId">
-                                <button className="btn btn-outline-warning w-100 mb-2" href="#" onClick={() => setShowUpdate(true)}>Update</button>
-                                <button className="btn btn-outline-danger w-100" href="#" onClick={() => setShowDelete(true)}>Delete</button>
+                        <h6>
+                            <div className="dropdown open">
+                                <button className="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">
+                                    <span className="badge bg-secondary">Author</span>
+                                    <i className="fa-solid fa-ellipsis"></i>
+                                </button>
+                                <div className="dropdown-menu p-0" aria-labelledby="triggerId">
+                                    <button className="btn btn-outline-warning w-100 mb-2" href="#" onClick={() => setShowUpdate(true)}>Update</button>
+                                    <button className="btn btn-outline-danger w-100" href="#" onClick={() => setShowDelete(true)}>Delete</button>
+                                </div>
                             </div>
-                        </div></h6>}
+                        </h6>}
 
                 </div>
                 <h4>{post.title}</h4>

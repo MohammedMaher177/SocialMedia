@@ -40,7 +40,7 @@ export default function Profile() {
                     <h3>Email :{user?.email}</h3>
                 </div>
                 <div className="col-md-8 mx-auto border rounded-3 mb-4">
-                    {isLoading ? <Loading /> : !posts.length ? <span className=' text-warning'>No Posts To View</span> : posts?.map(post => <DisplayPosts post={post} key={post._id} />)}
+                    {isLoading ? <Loading isLoading={isLoading}/> : !posts.length ? <span className=' text-warning'>No Posts To View</span> : posts?.map(post => <DisplayPosts post={post} key={post._id} />)}
                 </div>
                 <div className="col-md-9 mx-auto position-absolute top-100 start-0 end-0">
                     <div className='d-flex justify-content-between'>

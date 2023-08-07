@@ -19,4 +19,9 @@ code {
 
 .clickable{
   cursor: pointer;
+  transition: all 0.5s;
+}
+
+.clickable:hover{
+  color: #449f8f;
 }

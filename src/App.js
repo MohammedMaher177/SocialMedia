@@ -15,6 +15,7 @@ import Profile from './Components/Profile/Profile.jsx';
 import PostWithComments from './Components/Posts/PostWithComments.jsx';
 import Users from './Components/Users/Users.jsx';
 import { Toaster } from 'react-hot-toast';
+import ProtectedRout from './Components/ProtectedRout/ProtectedRout.jsx';
 
 
 
@@ -25,16 +26,15 @@ const router = createBrowserRouter([
     element: <Layout />,
 
     children: [
-      { path: "team", element: <Navbar />, },
-      { index: true, element: <Posts />, },
-      { path: "SocialMedia", element: <Home />, },
-      { path: "posts", element: <Posts />, },
-      { path: "movies", element: <Movies />, },
-      { path: "login", element: <Login />, },
-      { path: "users", element: <Users />, },
-      { path: "signup", element: <Register />, },
-      { path: "users/search/:id", element: <Profile />, },
-      { path: "posts/search/:id", element: <PostWithComments />, },
+      { index: true, element: <ProtectedRout><Posts /></ProtectedRout>, },
+      { path: "SocialMedia", element: <ProtectedRout><Home /></ProtectedRout>, },
+      { path: "posts", element: <ProtectedRout><Posts /></ProtectedRout>, },
+      { path: "movies", element: <ProtectedRout><Movies /></ProtectedRout>, },
+      { path: "login", element: <ProtectedRout><Login /></ProtectedRout>, },
+      { path: "users", element: <ProtectedRout><Users /></ProtectedRout>, },
+      { path: "signup", element: <ProtectedRout><Register /></ProtectedRout>, },
+      { path: "users/search/:id", element: <ProtectedRout><Profile /></ProtectedRout>, },
+      { path: "posts/search/:id", element: <ProtectedRout><PostWithComments /></ProtectedRout>, },
       { path: "*", element: <NotFound />, },
     ],
   },
@@ -43,9 +43,12 @@ function App() {
   return (
     <div className="App">
       <Provider store={store}>
-        <Toaster  position="top-right" reverseOrder={false}/>
+        <Toaster position="top-right" reverseOrder={false} />
         <RouterProvider router={router}>
-          <Layout />
+          <ProtectedRout>
+
+            <Layout />
+          </ProtectedRout>
         </RouterProvider>
       </Provider>
 

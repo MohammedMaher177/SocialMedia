@@ -1,0 +1,27 @@
+
+.comment {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    justify-content: center;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .name {
+    font-weight: bold;
+  }
+  
+  .timestamp {
+    color: gray;
+  }
+  
+  .content {
+    font-size: 14px;
+  }
