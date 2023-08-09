@@ -55,3 +55,7 @@
   /* border-color: #A5D9D0 !important; */
   border: 3px solid #A5D9D0 !important;
 }
+
+:where(.css-dev-only-do-not-override-fpg3f5).ant-float-btn{
+  /* position: initial !important; */
+}

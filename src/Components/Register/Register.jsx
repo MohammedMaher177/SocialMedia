@@ -49,6 +49,7 @@ export default function Register() {
         initialValues[name] = value
     }
     const onSubmit = async (values) => {
+        console.log(values);
         const { payload } = await dispatch(signUp(values))
         if (payload.user) {
             navigate("/login")

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { getDateInDays } from '../../Util/Util.js'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { unLike, likePost, like } from '../../Redux/postsSlice.js'
 import PopUpAlert from '../PopUpAlert/PopUpAlert.jsx'
@@ -8,13 +8,19 @@ import DeletePostAlert from '../PopUpAlert/DeletePostAlert.jsx'
 import UpdatePostAlert from '../PopUpAlert/UpdatePostAlert.js'
 
 import styles from "../Login/login.module.css"
+import { firendRequest } from '../../Redux/profileSlicce.js'
 export default function DisplayPosts({ post }) {
+    console.log(post);
+    const { id } = useParams()
+    // console.log(id);
+
     // console.log(post);
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
     const [showDelete, setShowDelete] = useState(false);
     const [showUpdate, setShowUpdate] = useState(false);
     const { id: userId, token } = useSelector(({ auth }) => auth)
+    // console.log(userId);
     const getLikePost = async (postId) => {
         if (!userId) {
             setShow(true)
@@ -22,7 +28,7 @@ export default function DisplayPosts({ post }) {
         }
         const value = {
             headers: {
-                authorizathion: token
+                authorization: token
             },
             postId
         }
@@ -34,15 +40,30 @@ export default function DisplayPosts({ post }) {
         }
     }
 
+
+    const addFirend = async (id) => {
+
+        const value = {
+            token,
+            user_id: id
+        }
+
+        await dispatch(firendRequest(value))
+
+    }
     return (
         <>
+
             <div className='border-bottom text-start p-3'>
                 <div className='d-flex justify-content-between'>
                     <Link to={`/users/search/${post.authorId._id}`} className='text-decoration-none'>
                         <h2 className=' main_color clickable'>{post?.authorId?.name}<i className="fa-regular fa-address-card mx-1"></i></h2>
                     </Link>
                     {(post.authorId._id !== userId && post.authorId !== userId) ?
-                        <button className="add_friend_btn">Add Friend<i className="fa-solid fa-user-plus mx-2"></i></button> :
+                        <button className="add_friend_btn" onClick={() => addFirend(post.authorId._id)}>
+                            
+                            Add Friend<i className="fa-solid fa-user-plus mx-2"></i>
+                        </button> :
                         <h6>
                             <div className="dropdown open">
                                 <button className="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-bs-toggle="dropdown" aria-haspopup="true"

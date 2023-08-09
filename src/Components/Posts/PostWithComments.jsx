@@ -31,7 +31,7 @@ export default function PostWithComments() {
     }
     const value = {
       headers: {
-        authorizathion: token
+        authorization: token
       },
       postId
     }

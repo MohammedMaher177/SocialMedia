@@ -46,7 +46,6 @@ function App() {
         <Toaster position="top-right" reverseOrder={false} />
         <RouterProvider router={router}>
           <ProtectedRout>
-
             <Layout />
           </ProtectedRout>
         </RouterProvider>

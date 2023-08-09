@@ -7,7 +7,7 @@ const initialState = {}
 // export const addComment = createAsyncThunk("comment/createComment", async (value) => {
 //     const { body, token } = value
 //     console.log(value);
-//     const headers = { authorizathion: token }
+//     const headers = { authorization: token }
 
 //     const { data } = await axios.post(`${baseUrl}/posts/addComment`, body, {headers})
 //     console.log(data);

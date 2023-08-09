@@ -29,7 +29,7 @@ export const getSubPost = createAsyncThunk('posts/getSubPost', async (id) => {
 })
 
 export const addPost = createAsyncThunk("posts/addPost", async (values) => {
-    const headers = { authorizathion: values.token }
+    const headers = { authorization: values.token }
     // console.log(headers);
     const { data } = await axios.post(`${baseUrl}/posts`, values.formData, {
         headers
@@ -51,7 +51,7 @@ export const likePost = createAsyncThunk("post/like", async (value, state) => {
 
 export const deletePost = createAsyncThunk("post/delete", async (value) => {
     console.log(value);
-    const headers = { authorizathion: value.token }
+    const headers = { authorization: value.token }
     const { data } = await axios.delete(`${baseUrl}/posts/${value.postId}`, { headers })
     console.log(data);
     return data
@@ -60,7 +60,7 @@ export const deletePost = createAsyncThunk("post/delete", async (value) => {
 export const addComment = createAsyncThunk("comment/createComment", async (value) => {
     const { body, token } = value
     console.log(value);
-    const headers = { authorizathion: token }
+    const headers = { authorization: token }
 
     const { data } = await axios.post(`${baseUrl}/posts/addComment`, body, {headers})
     console.log(data);
@@ -71,7 +71,7 @@ export const updatePost = createAsyncThunk("post/update", async (value) => {
     const { values, token, _id } = value
     console.log(value);
 
-    const headers = { authorizathion: token }
+    const headers = { authorization: token }
     const { data } = await axios.put(`${baseUrl}/posts/${_id}`, { title: values.title, content: values.content }, { headers })
     console.log(data);
     return data
