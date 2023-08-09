@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { getDateInDays } from '../../Util/Util.js'
 import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { unLike, likePost, like } from '../../Redux/postsSlice.js'
+import { unLike, likePost, like, handleFirendReq } from '../../Redux/postsSlice.js'
 import PopUpAlert from '../PopUpAlert/PopUpAlert.jsx'
 import DeletePostAlert from '../PopUpAlert/DeletePostAlert.jsx'
 import UpdatePostAlert from '../PopUpAlert/UpdatePostAlert.js'
@@ -10,7 +10,7 @@ import UpdatePostAlert from '../PopUpAlert/UpdatePostAlert.js'
 import styles from "../Login/login.module.css"
 import { firendRequest } from '../../Redux/profileSlicce.js'
 export default function DisplayPosts({ post }) {
-    console.log(post);
+    // console.log(post);
     const { id } = useParams()
     // console.log(id);
 
@@ -41,14 +41,16 @@ export default function DisplayPosts({ post }) {
     }
 
 
-    const addFirend = async (id) => {
+    const addFirend = async (id, post_id) => {
 
         const value = {
             token,
             user_id: id
         }
 
-        await dispatch(firendRequest(value))
+        const {payload} = await dispatch(firendRequest(value))
+        const val = {recivedUser : payload.recivedUser, post_id}
+        dispatch(handleFirendReq(val))
 
     }
     return (
@@ -60,9 +62,9 @@ export default function DisplayPosts({ post }) {
                         <h2 className=' main_color clickable'>{post?.authorId?.name}<i className="fa-regular fa-address-card mx-1"></i></h2>
                     </Link>
                     {(post.authorId._id !== userId && post.authorId !== userId) ?
-                        <button className="add_friend_btn" onClick={() => addFirend(post.authorId._id)}>
-                            
-                            Add Friend<i className="fa-solid fa-user-plus mx-2"></i>
+
+                        <button className="add_friend_btn" onClick={() => addFirend(post.authorId._id, post._id)}>
+                            {post.authorId.firendRequest.includes(userId) ? "pendding" : <span>Add Friend<i className="fa-solid fa-user-plus mx-2"></i></span>}
                         </button> :
                         <h6>
                             <div className="dropdown open">

@@ -24,12 +24,11 @@ export const getProfileData = createAsyncThunk("profilel/getProfile", async (id)
 
 export const firendRequest = createAsyncThunk("profile/firendRequest", async (val) => {
     const { token, user_id } = val
-    console.log(val);
     toast.loading("LOADING...")
     const { data } = await axios.post(`${baseUrl}/users/addfirend`, { user_id }, { headers: { authorization: token } })
     toast.remove()
     toast.success(data.param);
-    console.log(data);
+    return data
 })
 
 
@@ -44,7 +43,7 @@ const proflieSlice = createSlice({
             state.user = {}
         })
         builder.addCase(getProfileData.fulfilled, (state, actions) => {
-            console.log(actions.payload);
+            // console.log(actions.payload);
             state.user = actions.payload.user
             state.posts = actions.payload.posts
             state.isLoading = false

@@ -4,7 +4,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { baseUrl, headers } from "../Util/Util.js";
 
-const initialState = { posts: [], isLoading: false, subPost: {}}
+const initialState = { posts: [], isLoading: false, subPost: {} }
 
 
 const fetchData = async (method, endPoint = "") => {
@@ -62,7 +62,7 @@ export const addComment = createAsyncThunk("comment/createComment", async (value
     console.log(value);
     const headers = { authorization: token }
 
-    const { data } = await axios.post(`${baseUrl}/posts/addComment`, body, {headers})
+    const { data } = await axios.post(`${baseUrl}/posts/addComment`, body, { headers })
     console.log(data);
     return data.new_post
 })
@@ -102,6 +102,12 @@ const postsSlice = createSlice({
                 }
             }
             // console.log(state.posts);
+        }, handleFirendReq: (state, actions) => {
+            state.posts.map(post => {
+                if(post._id == actions.payload.post_id){
+                    post.authorId = actions.payload.recivedUser
+                }
+            })
         }
     },
     extraReducers: (builder) => {
@@ -122,7 +128,6 @@ const postsSlice = createSlice({
                 state.subPost.postLikes = actions.payload.post.postLikes;
             }
         })
-
         builder.addCase(getSubPost.pending, (state, actions) => {
             state.isLoading = true
         });
@@ -150,7 +155,7 @@ const postsSlice = createSlice({
                 }
             }
         })
-        
+
         builder.addCase(addComment.fulfilled, (state, actions) => {
             state.subPost.postComments = actions.payload.postComments
         })
@@ -160,4 +165,4 @@ const postsSlice = createSlice({
 
 export const postsReducer = postsSlice.reducer;
 
-export const { unLike, like } = postsSlice.actions;
+export const { unLike, like, handleFirendReq } = postsSlice.actions;

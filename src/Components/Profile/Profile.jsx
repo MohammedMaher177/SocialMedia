@@ -30,7 +30,7 @@ export default function Profile() {
 
 
     const { user, isLoading, posts : userPosts } = useSelector(({ profile }) => profile)
-    console.log(user);
+    // console.log(user);
     const { posts } = useSelector(({ posts }) => posts)
     const { id: userId } = useSelector(({ auth }) => auth)
     // console.log({"paarm":id, "auth":userId});
