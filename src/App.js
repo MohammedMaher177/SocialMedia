@@ -47,7 +47,7 @@ const router = createBrowserRouter([
         ]
       },
       { path: "posts/search/:id", element: <ProtectedRout><PostWithComments /></ProtectedRout>, },
-      { path: "./verifyemail/:verifyToken", element: <Verify />, },
+      { path: "auth/verifyemail/:verifyToken", element: <Verify />, },
       { path: "*", element: <NotFound />, },
     ],
   },
