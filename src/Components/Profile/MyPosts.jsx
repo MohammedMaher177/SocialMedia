@@ -15,7 +15,7 @@ export default function MyPosts() {
     // console.log(post);
     const { id } = useParams()
     const { posts, user } = useSelector(({ profile }) => profile)
-    // console.log(user);
+    console.log(user);
 
     const dispatch = useDispatch()
     const [show, setShow] = useState(false);
@@ -48,7 +48,7 @@ export default function MyPosts() {
             user_id: id
         }
         const { payload } = await dispatch(firendRequest(value))
-        // console.log(payload);
+        console.log(payload);
         const val = { recivedUser: payload.recivedUser, post_id }
         dispatch(handleFirendReq(val))
     }

@@ -1,25 +1,32 @@
 
 
 
-import axios from 'axios';
 import React, { useEffect } from 'react'
-import { useParams } from 'react-router-dom'
-import { baseUrl } from '../../Util/Util.js';
+import { useNavigate, useParams } from 'react-router-dom'
+import jwtDecode from 'jwt-decode';
 
 export default function Verify() {
-    const {verifyToken} = useParams()
+    const { verifyToken } = useParams()
+    const navigate = useNavigate()
     console.log(verifyToken);
-    const confirmEmail = async ()=> {
-    //    const {data} =  await axios.get(`${baseUrl}/users/verifyemail/${verifyToken}`)
-    //    console.log(data);
-    //    if(data.message == "success"){
-    //     localStorage.setItem("userId", data.token)
-    //    }
+    const confirmEmail = async () => {
+        try {
+            const { isActive, id } = jwtDecode(verifyToken)
+        if (isActive) {
+            alert("VERIFIED, Click to go to your Profile Page")
+            localStorage.setItem("userId", verifyToken)
+            navigate(`/users/search/${id}`, { replace: true })
+        }
+        } catch (error) {
+            console.log(error);
+        }
+        
+
     }
-    useEffect(()=>{
+    useEffect(() => {
         confirmEmail()
     })
-  return (
-    <div className='p-5'>Verify</div>
-  )
+    return (
+        <h1 className='p-5 text-warning text-center'> PLEASE CHECK YOUR MAIL INBOX</h1>
+    )
 }
