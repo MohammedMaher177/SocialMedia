@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Navbar from './Components/Navbar/Navbar.jsx';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, createHashRouter } from 'react-router-dom';
 import Home from './Components/Home/Home.jsx';
 import Posts from './Components/Posts/Posts.jsx';
 import Movies from './Components/Movies/Movies.jsx';
@@ -24,7 +24,7 @@ import Verify from './Components/Verify/Verify.jsx';
 
 
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: "/",
     element: <Layout />,
@@ -36,8 +36,8 @@ const router = createBrowserRouter([
       { path: "movies", element: <ProtectedRout><Movies /></ProtectedRout>, },
       { path: "login", element: <ProtectedRout><Login /></ProtectedRout>, },
       { path: "users", element: <ProtectedRout><Users /></ProtectedRout>, },
-      { path: "auth/verifyemail/:verifyToken", element: <Verify />, },
       { path: "signup", element: <ProtectedRout><Register /></ProtectedRout>, },
+      { path: "auth/verifyemail/:verifyToken", element: <Verify />, },
       {
         path: "users/search/:id", element: <ProtectedRout><Profile /></ProtectedRout>,
         children: [
