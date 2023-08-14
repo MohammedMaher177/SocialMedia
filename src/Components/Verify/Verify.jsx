@@ -12,15 +12,15 @@ export default function Verify() {
     const confirmEmail = async () => {
         try {
             const { isActive, id } = jwtDecode(verifyToken)
-        if (isActive) {
-            alert("VERIFIED, Click to go to your Profile Page")
-            localStorage.setItem("userId", verifyToken)
-            navigate(`/users/search/${id}`, { replace: true })
-        }
+            if (isActive) {
+                alert("VERIFIED, Click to go to your Profile Page")
+                localStorage.setItem("userId", verifyToken)
+                navigate(`/users/search/${id}`, { replace: true })
+            }
         } catch (error) {
             console.log(error);
         }
-        
+
 
     }
     useEffect(() => {
