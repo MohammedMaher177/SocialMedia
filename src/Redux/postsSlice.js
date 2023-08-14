@@ -102,12 +102,13 @@ const postsSlice = createSlice({
                 }
             }
             // console.log(state.posts);
-        }, handleFirendReq: (state, actions) => {
+        }, handleFirendReq: (state, actions) => {            
             state.posts.map(post => {
                 if(post._id == actions.payload.post_id){
                     post.authorId = actions.payload.recivedUser
                 }
             })
+            
         }
     },
     extraReducers: (builder) => {

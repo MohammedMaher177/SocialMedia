@@ -33,6 +33,15 @@ const saveUserData = (id) => {
     localStorage.setItem("userId", id)
 }
 
+export const getAccountData = createAsyncThunk("authen/confirmedEmail", async (id) => {
+    console.log(id);
+    if(id.length > 0){
+        const { data } = await axios.get(`${baseUrl}/users/search/${id}`)
+        console.log(data);
+        return data
+    }
+})
+
 const authSlice = createSlice({
     name: "authen",
     initialState,
@@ -45,12 +54,11 @@ const authSlice = createSlice({
         getUserData: (state, actions) => {
             if (localStorage.getItem('userId')) {
                 const token = localStorage.getItem('userId')
-                const { id, name , email } = jwtDecode(token)
+                const { id, name, email } = jwtDecode(token)
                 state.token = token
                 state.user._id = id
                 state.id = id
                 state.user.name = name
-                
             }
         }
     },
@@ -65,7 +73,7 @@ const authSlice = createSlice({
             if (actions.payload.message == 'success') {
                 state.user = actions.payload.user
                 state.id = actions.payload.user._id
-                // saveUserData(actions.payload.token)
+                saveUserData(actions.payload.token)
             } else {
                 state.errorMsg = actions.payload.param
                 state.isLoading = false
@@ -99,6 +107,12 @@ const authSlice = createSlice({
         //     if (actions.payload != null) state.user = actions.payload.user
 
         // })
+        builder.addCase(getAccountData.fulfilled, (state, actions) => {
+            console.log(actions);
+            if(actions.payload){
+                state.user = actions.payload.user
+            }
+        })
 
     }
 })

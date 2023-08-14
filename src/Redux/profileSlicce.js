@@ -8,7 +8,8 @@ const initialState = {
 
     },
     posts: [],
-    isLoading: false
+    isLoading: false,
+    firendRequest: []
 }
 
 
@@ -19,16 +20,25 @@ export const getProfileData = createAsyncThunk("profilel/getProfile", async (id)
         headers
     })
     const { posts, user } = data
+    // console.log(data);
     return { posts, user }
 })
 
-export const firendRequest = createAsyncThunk("profile/firendRequest", async (val) => {
+export const firendRequest = createAsyncThunk("profile/friendRequest", async (val) => {
     const { token, user_id } = val
+    // console.log(val);
     toast.loading("LOADING...")
-    const { data } = await axios.post(`${baseUrl}/users/addfirend`, { user_id }, { headers: { authorization: token } })
+    const { data } = await axios.post(`${baseUrl}/users/addfriend`, { user_id }, { headers: { authorization: token } })
+    // console.log(data);
     toast.remove()
     toast.success(data.param);
     return data
+})
+
+export const getFrientRequests = createAsyncThunk("profile/getFriendRequest", async (token) => {
+    const { data } = await axios.get(`${baseUrl}/users/friendrequests`, { headers: { authorization: token } })
+    // console.log(data);
+    return data.firendRequest
 })
 
 
@@ -47,6 +57,14 @@ const proflieSlice = createSlice({
             state.user = actions.payload.user
             state.posts = actions.payload.posts
             state.isLoading = false
+        })
+        builder.addCase(getFrientRequests.fulfilled, (state, actions) => {
+            state.firendRequest = actions.payload
+        })
+        builder.addCase(firendRequest.fulfilled, (state, actions) => {
+            if(actions.payload.message === 'success'){
+                state.user = actions.payload.recivedUser
+            }
         })
     }
 })

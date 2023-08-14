@@ -16,7 +16,7 @@ export default function Posts() {
   let { posts, isLoading } = useSelector(state => state.posts)
   // console.log(posts);
   const getAllPosts = async () => {
-     await dispatch(getPosts())
+    await dispatch(getPosts())
 
     //  posts?.reverse()
   }
@@ -29,9 +29,13 @@ export default function Posts() {
     <Helmet >
       <title>My Social Media APP / Posts</title>
     </Helmet>
-    <CreatePost />
-    {/* <Skeleton loading={isLoading} active></Skeleton> */}
-    {isLoading ? <Loading isLoading={isLoading}/> : posts?.map(post => <DisplayPosts post={post} key={post._id} />)}
+
+    <div className='containe'>
+
+      <CreatePost />
+      {/* <Skeleton loading={isLoading} active></Skeleton> */}
+      {isLoading ? <Loading isLoading={isLoading} /> : posts?.map(post => <DisplayPosts post={post} key={post._id} />)}
+    </div>
 
 
   </>

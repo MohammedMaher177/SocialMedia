@@ -3,11 +3,35 @@
 
 
 
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { getFrientRequests } from '../../Redux/profileSlicce.js';
 
-export default function FirendRequest({firendRequest}) {
-    console.log(firendRequest);
+export default function FirendRequest() {
+    const { user, token } = useSelector(({ auth }) => auth)
+    const { firendRequest } = useSelector(({ profile }) => profile)
+    const dispatch = useDispatch()
+
+    const getRequests = async () => {
+        await dispatch(getFrientRequests(token))
+    }
+
+    useEffect(() => {
+        getRequests(token)
+    }, [])
     return (
-        <div>FirendRequest</div>
+        <>
+            {!firendRequest?.lenght ? <div className='border-bottom text-start p-3'>
+                <div className='d-flex justify-content-between'>
+
+                    <h2>No Friend Request yet</h2>
+                </div>
+            </div> : firendRequest.lenght}
+
+
+
+
+
+        </>
     )
 }

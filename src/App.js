@@ -16,6 +16,10 @@ import PostWithComments from './Components/Posts/PostWithComments.jsx';
 import Users from './Components/Users/Users.jsx';
 import { Toaster } from 'react-hot-toast';
 import ProtectedRout from './Components/ProtectedRout/ProtectedRout.jsx';
+import FirendRequest from './Components/Profile/FirendRequest.jsx';
+import MyPosts from './Components/Profile/MyPosts.jsx';
+import Friends from './Components/Profile/Friends.jsx';
+import Verify from './Components/Verify/Verify.jsx';
 
 
 
@@ -33,8 +37,17 @@ const router = createBrowserRouter([
       { path: "login", element: <ProtectedRout><Login /></ProtectedRout>, },
       { path: "users", element: <ProtectedRout><Users /></ProtectedRout>, },
       { path: "signup", element: <ProtectedRout><Register /></ProtectedRout>, },
-      { path: "users/search/:id", element: <ProtectedRout><Profile /></ProtectedRout>, },
+      {
+        path: "users/search/:id", element: <ProtectedRout><Profile /></ProtectedRout>,
+        children: [
+          {index: true, element:<MyPosts />},
+          { path: "friendrequests", element: <FirendRequest /> },
+          { path: "posts", element: <MyPosts /> },
+          { path: "friends", element: <Friends /> },
+        ]
+      },
       { path: "posts/search/:id", element: <ProtectedRout><PostWithComments /></ProtectedRout>, },
+      { path: "verifyemail/:verifyToken", element: <Verify />, },
       { path: "*", element: <NotFound />, },
     ],
   },

@@ -52,7 +52,7 @@ export default function Register() {
         console.log(values);
         const { payload } = await dispatch(signUp(values))
         if (payload.user) {
-            navigate("/login")
+            navigate("/")
         }
     };
 

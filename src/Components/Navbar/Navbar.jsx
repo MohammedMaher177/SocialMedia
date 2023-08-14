@@ -51,13 +51,13 @@ export default function Navbar() {
                         </li>
                     </ul>
                     <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-                        {user._id ? <>
+                        {user?._id ? <>
                             <li className="nav-item dropdown">
                                 <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     {user?.name}
                                 </Link>
                                 <ul className="dropdown-menu">
-                                    <li><Link className="dropdown-item" to={`/users/search/${user._id}`}>Profile</Link></li>
+                                    <li><Link className="dropdown-item" to={`/users/search/${user?._id}`}>Profile</Link></li>
                                     <li><Link className="dropdown-item" to="">Another action</Link></li>
                                     <li><hr className="dropdown-divider" /></li>
                                     <li><Link className="dropdown-item" onClick={signout}>LogOut</Link></li>
