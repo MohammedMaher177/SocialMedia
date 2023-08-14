@@ -10,7 +10,7 @@ export default function Verify() {
     const { verifyToken } = useParams()
     const [show, setshow] = useState(false)
     const [userId, setUserId] = useState(false)
-    
+
     const confirmEmail = async () => {
         try {
             const { isActive, id } = jwtDecode(verifyToken)
@@ -30,8 +30,11 @@ export default function Verify() {
     })
     return (
         <>
-        <h1 className='p-5 text-warning text-center'> PLEASE CHECK YOUR MAIL INBOX</h1>
-        <VerifyAlert show={show} setShow={setshow} id={userId}/>
+            <h1 className='p-5 text-warning text-center'> PLEASE CHECK YOUR MAIL INBOX</h1>
+            <button className='d-none'>
+
+                <VerifyAlert show={show} setShow={setshow} id={userId} />
+            </button>
         </>
     )
 }
