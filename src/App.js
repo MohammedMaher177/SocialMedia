@@ -36,6 +36,7 @@ const router = createBrowserRouter([
       { path: "movies", element: <ProtectedRout><Movies /></ProtectedRout>, },
       { path: "login", element: <ProtectedRout><Login /></ProtectedRout>, },
       { path: "users", element: <ProtectedRout><Users /></ProtectedRout>, },
+      { path: "./auth/verifyemail/:verifyToken", element: <Verify />, },
       { path: "signup", element: <ProtectedRout><Register /></ProtectedRout>, },
       {
         path: "users/search/:id", element: <ProtectedRout><Profile /></ProtectedRout>,
@@ -47,7 +48,7 @@ const router = createBrowserRouter([
         ]
       },
       { path: "posts/search/:id", element: <ProtectedRout><PostWithComments /></ProtectedRout>, },
-      { path: "auth/verifyemail/:verifyToken", element: <Verify />, },
+
       { path: "*", element: <NotFound />, },
     ],
   },

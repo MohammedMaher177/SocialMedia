@@ -8,18 +8,18 @@ import { baseUrl } from '../../Util/Util.js';
 
 export default function Verify() {
     const {verifyToken} = useParams()
-    // console.log(verifyToken);
+    console.log(verifyToken);
     const confirmEmail = async ()=> {
-       const {data} =  await axios.get(`${baseUrl}/users/verifyemail/${verifyToken}`)
-       console.log(data);
-       if(data.message == "success"){
-        localStorage.setItem("userId", data.token)
-       }
+    //    const {data} =  await axios.get(`${baseUrl}/users/verifyemail/${verifyToken}`)
+    //    console.log(data);
+    //    if(data.message == "success"){
+    //     localStorage.setItem("userId", data.token)
+    //    }
     }
     useEffect(()=>{
         confirmEmail()
     })
   return (
-    <div>Verify</div>
+    <div className='p-5'>Verify</div>
   )
 }

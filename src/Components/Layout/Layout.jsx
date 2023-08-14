@@ -46,7 +46,7 @@ export default function Layout(props) {
                     <Link to={`/signup`} className=' text-decoration-none'>Register now</Link> or
                     <Link to={`/login`} className=' text-decoration-none'>Log in</Link>
                 </h3>}
-                {!user?.confirmEmail && <h3 className={styles.bdg}>Please verify your email</h3>}
+                {/* {!user?.confirmEmail && <h3 className={styles.bdg}>Please verify your email</h3>} */}
                 <Outlet>
                 </Outlet>
             </div>
