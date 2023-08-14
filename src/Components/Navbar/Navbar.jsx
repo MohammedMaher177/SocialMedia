@@ -40,6 +40,9 @@ export default function Navbar() {
                         <li className="nav-item">
                             <NavLink className="nav-link" aria-current="page" to="/">Home</NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" aria-current="page" to="./auth/verifyemail/55555">verif</NavLink>
+                        </li>
                         {/* <li className="nav-item">
                             <Link className="nav-link" to="./posts">posts</Link>
                         </li> */}
