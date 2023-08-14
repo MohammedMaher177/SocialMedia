@@ -40,14 +40,14 @@ const router = createBrowserRouter([
       {
         path: "users/search/:id", element: <ProtectedRout><Profile /></ProtectedRout>,
         children: [
-          {index: true, element:<MyPosts />},
+          { index: true, element: <MyPosts /> },
           { path: "friendrequests", element: <FirendRequest /> },
           { path: "posts", element: <MyPosts /> },
           { path: "friends", element: <Friends /> },
         ]
       },
       { path: "posts/search/:id", element: <ProtectedRout><PostWithComments /></ProtectedRout>, },
-      { path: "verifyemail/:verifyToken", element: <Verify />, },
+      { path: "./verifyemail/:verifyToken", element: <Verify />, },
       { path: "*", element: <NotFound />, },
     ],
   },
