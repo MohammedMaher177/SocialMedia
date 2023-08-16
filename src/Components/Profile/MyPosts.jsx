@@ -54,7 +54,7 @@ export default function MyPosts() {
     }
     return (
         <>
-            {posts?.map((post) => <div className='border-bottom text-start p-3' key={post?._id}>
+            {!posts.lenght ? <h2 className='text-warning text-center p-2'>No Posts to Reviw</h2> : posts?.map((post) => <div className='border-bottom text-start p-3' key={post?._id}>
                 <div className='d-flex justify-content-between'>
                     {/* <Link to={`/users/search/${user?._id}`} className='text-decoration-none'> */}
                     <h2 className=' main_color clickable'>{user?.name}<i className="fa-regular fa-address-card mx-1"></i></h2>

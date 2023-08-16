@@ -1,17 +1,19 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup'
 import { signUp } from '../../Redux/authSlice.js';
 import { Link, useNavigate } from 'react-router-dom';
 
 import styles from "../Login/login.module.css"
+import VerifyPopUp from '../PopUpAlert/VerifyPopUp.jsx';
 
 
 
 export default function Register() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
+    const [show, setShow] = useState(true)
     const { isLoading, errorMsg } = useSelector(({ auth }) => auth)
 
     const initialValues = {
@@ -52,6 +54,7 @@ export default function Register() {
         console.log(values);
         const { payload } = await dispatch(signUp(values))
         if (payload.user) {
+            setShow(true)
             navigate("/")
         }
     };
@@ -177,6 +180,9 @@ export default function Register() {
                         )}
                     </Formik>
                 </div>
+                <button className='d-none'>
+                    <VerifyPopUp show={show} setShow={setShow} />
+                </button>
             </div>
         </>
     )

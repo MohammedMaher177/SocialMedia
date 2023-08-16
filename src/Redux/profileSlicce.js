@@ -9,7 +9,8 @@ const initialState = {
     },
     posts: [],
     isLoading: false,
-    firendRequest: []
+    firendRequest: [],
+    friends : []
 }
 
 
@@ -55,6 +56,7 @@ const proflieSlice = createSlice({
         builder.addCase(getProfileData.fulfilled, (state, actions) => {
             // console.log(actions.payload);
             state.user = actions.payload.user
+            state.friends = actions.payload.user.firends
             state.posts = actions.payload.posts
             state.isLoading = false
         })

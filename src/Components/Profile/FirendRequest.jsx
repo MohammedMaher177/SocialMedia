@@ -21,17 +21,7 @@ export default function FirendRequest() {
     }, [])
     return (
         <>
-            {!firendRequest?.lenght ? <div className='border-bottom text-start p-3'>
-                <div className='d-flex justify-content-between'>
-
-                    <h2>No Friend Request yet</h2>
-                </div>
-            </div> : firendRequest.lenght}
-
-
-
-
-
+            {!firendRequest?.lenght ? <h2 className='text-warning text-center p-2'>No Friend Request yet</h2> : firendRequest.lenght}
         </>
     )
 }
