@@ -24,7 +24,7 @@ import Verify from './Components/Verify/Verify.jsx';
 
 
 
-const router = createHashRouter([
+const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
